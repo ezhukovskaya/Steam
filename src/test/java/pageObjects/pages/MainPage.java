@@ -10,6 +10,9 @@ public class MainPage {
 
     public void goToDownloadApp() {
         Browser.click(downloadButtonLocator);
+    }
+
+    public void downloadClient() {
         Browser.click(installButtonLocator);
     }
 }
