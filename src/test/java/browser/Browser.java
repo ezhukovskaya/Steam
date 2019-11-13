@@ -10,14 +10,15 @@ import java.util.concurrent.TimeUnit;
 public class Browser {
     private static WebDriver driver;
     private static Browser instanceOfSingletonBrowserClass = null;
+    private String browser = "browser";
+    private String browserName = PropertiesRead.readFromPropertiesFile(browser);
 
     /**
      * Конструктор
      */
     private Browser() {
-        PropertiesRead.getInstance();
         BrowserFactory.getInstance();
-        driver = BrowserFactory.getInstance().getBrowser(PropertiesRead.readFromPropertiesFile("browser"));
+        driver = BrowserFactory.getInstance().getBrowser(browserName);
     }
 
     /**

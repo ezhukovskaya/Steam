@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import pageObjects.pages.InstallPage;
 import pageObjects.pages.MainPage;
 import utils.waits.ExceptionTreat;
+import utils.waits.WebElementWait;
 
 public class SteamAppDownload {
     private MainPage mainPage;

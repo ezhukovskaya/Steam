@@ -17,7 +17,7 @@ public class BrowserFactory {
     private static BrowserFactory browserFactoryInstance = null;
     private static String chrome = "chrome";
     private static String firefox = "firefox";
-    private static String languageInProperty = "locale.language";
+    private static String languageInProperty = "language";
     private static String language = PropertiesRead.readFromPropertiesFile(languageInProperty);
     private static String downloadFilePath = "/home/ITRANSITION.CORP/e.zhukovskaya/Downloads";
 
@@ -67,6 +67,7 @@ public class BrowserFactory {
         chromePrefs.put("download.default_directory", downloadFilePath);
         chromePrefs.put("safebrowsing.enabled",true);
         chromeOptions.setExperimentalOption("prefs",chromePrefs);
+        chromeOptions.addArguments("--lang="+"'"+language+"'");
         return new ChromeDriver(chromeOptions);
     }
 
@@ -80,9 +81,10 @@ public class BrowserFactory {
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         firefoxOptions.addPreference("browser.download.folderList", 2);
         firefoxOptions.addPreference("browser.download.dir", downloadFilePath);
+        firefoxOptions.addPreference("browser.download.useDownloadDir",true);
         firefoxOptions.addPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-debian-package");
         firefoxOptions.addPreference("pdfjs.disabled", true);
-        //firefoxOptions.addPreference("intl.accept_languages", language);
+        firefoxOptions.addPreference("intl.accept_languages", language);
         return new FirefoxDriver(firefoxOptions);
     }
 

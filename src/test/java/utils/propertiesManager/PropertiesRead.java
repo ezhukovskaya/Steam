@@ -7,7 +7,6 @@ import java.util.Properties;
 
 public class PropertiesRead {
     private static Properties prop = new Properties();
-    private static PropertiesRead propertiesReadInstance = null;
     private String path = "src/test/java/resources/config.properties";
 
     /**
@@ -22,19 +21,6 @@ public class PropertiesRead {
         }
 
     }
-
-    /**
-     * Инициализация Singleton
-     *
-     * @return propertiesReadInstance
-     */
-    public static PropertiesRead getInstance() {
-        if (propertiesReadInstance == null) {
-            propertiesReadInstance = new PropertiesRead();
-        }
-        return propertiesReadInstance;
-    }
-
     /**
      * чтение параметров из config
      *

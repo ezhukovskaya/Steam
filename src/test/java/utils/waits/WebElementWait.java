@@ -10,13 +10,14 @@ import utils.propertiesManager.PropertiesRead;
 public class WebElementWait {
     private static WebElementWait webElementWait;
     private static String timeout = "timeout";
+    private static int timeoutValue = Integer.parseInt(PropertiesRead.readFromPropertiesFile(timeout));
     /**
      * метод для определения ожидания появления элемента
      *
      * @param by локатор для веб-элемента
      */
     public static void waiterForWebElement(By by) {
-        WebElement dynamicElement = (new WebDriverWait(Browser.getDriver(), Integer.parseInt(PropertiesRead.readFromPropertiesFile(timeout)))).until(ExpectedConditions.presenceOfElementLocated(by));
+        WebElement dynamicElement = (new WebDriverWait(Browser.getDriver(), timeoutValue)).until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
     /**
@@ -28,5 +29,4 @@ public class WebElementWait {
     public static WebElement getWebElement(By by) {
         return Browser.getDriver().findElement(by);
     }
-
 }
