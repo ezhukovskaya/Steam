@@ -9,8 +9,7 @@ public class Button extends BaseElement {
     private By installButtonLocator = By.xpath("//*[@id=\"about_greeting\"]/div[4]/div[1]");
     private By logoButtonSteamLocator = By.xpath("//*[@id=\"logo_holder\"]/a/img");
 
-
-    public WebElement getLogoButtonSteam() {
-        return getElementByLocator(logoButtonSteamLocator);
+    public Button(String name, By locator) {
+        super(name, locator);
     }
 }
