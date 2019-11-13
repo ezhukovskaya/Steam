@@ -19,8 +19,6 @@ public class BrowserFactory {
     private static String firefox = "firefox";
     private static String languageInProperty = "locale.language";
     private static String language = PropertiesRead.readFromPropertiesFile(languageInProperty);
-    private static String countryInProperty = "country.language";
-    private static String country = PropertiesRead.readFromPropertiesFile(countryInProperty);
     private static String downloadFilePath = "/home/ITRANSITION.CORP/e.zhukovskaya/Downloads";
 
     /**
@@ -33,10 +31,10 @@ public class BrowserFactory {
         browserName = browserName.toLowerCase();
         WebDriver driver = null;
         if (browserName.equals(chrome)) {
-            driver = getChromeInstance(language, country);
+            driver = getChromeInstance(language);
         }
         if (browserName.equals(firefox)) {
-            driver = getFirefoxInstance(language, country);
+            driver = getFirefoxInstance(language);
         } else {
             System.out.println("Браузер указан неверно");
         }
@@ -61,11 +59,10 @@ public class BrowserFactory {
      *
      * @return
      */
-    private ChromeDriver getChromeInstance(String language, String country) {
+    private ChromeDriver getChromeInstance(String language) {
         WebDriverManager.chromedriver().setup();
         HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
         ChromeOptions chromeOptions = new ChromeOptions();
-        //chromeOptions.addArguments("--lang="+ language +"-"+country);
         chromePrefs.put("profile.default_content_settings.popups", 0);
         chromePrefs.put("download.default_directory", downloadFilePath);
         chromePrefs.put("safebrowsing.enabled",true);
@@ -78,16 +75,14 @@ public class BrowserFactory {
      *
      * @return
      */
-    private FirefoxDriver getFirefoxInstance(String language, String country) {
+    private FirefoxDriver getFirefoxInstance(String language) {
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions firefoxOptions = new FirefoxOptions();
-        FirefoxProfile firefoxProfile = new FirefoxProfile();
-        firefoxProfile.setPreference("browser.download.folderList", 2);
-        firefoxProfile.setPreference("browser.download.dir", downloadFilePath);
-        firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf");
-        firefoxProfile.setPreference("pdfjs.disabled", true);
-        firefoxOptions.setProfile(firefoxProfile);
-        //firefoxOptions.addArguments("--lang="+ language +"-"+country);
+        firefoxOptions.addPreference("browser.download.folderList", 2);
+        firefoxOptions.addPreference("browser.download.dir", downloadFilePath);
+        firefoxOptions.addPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-debian-package");
+        firefoxOptions.addPreference("pdfjs.disabled", true);
+        //firefoxOptions.addPreference("intl.accept_languages", language);
         return new FirefoxDriver(firefoxOptions);
     }
 
