@@ -12,15 +12,21 @@ import java.util.concurrent.TimeUnit;
 public class Browser {
     private static WebDriver driver;
     private static Browser instanceOfSingletonBrowserClass = null;
-    private String browser = "browser";
-    private String browserName = PropertiesRead.readFromPropertiesFile(browser);
+    private static final String LANGUAGE_IN_PROPERTY = "language";
+    private static final String BROWSER = "browser";
+    private static final String PAGE = "page";
+    private static final String TIMEOUT = "timeout";
+    private static String language;
+    private static String browserName;
 
     /**
      * Конструктор
      */
-    private Browser() throws ParserConfigurationException, SAXException, IOException {
+    private Browser() {
         PropertiesRead.propertiesRead();
-        driver = BrowserFactory.getBrowser(PropertiesRead.readFromPropertiesFile("browser"));
+        browserName = PropertiesRead.readFromPropertiesFile(BROWSER);
+        language = PropertiesRead.readFromPropertiesFile(LANGUAGE_IN_PROPERTY);
+        driver = BrowserFactory.getBrowser(browserName, language);
     }
 
     /**
@@ -48,7 +54,7 @@ public class Browser {
      * переход на сайт
      */
     public static void goToUrl() {
-        Browser.getDriver().get(PropertiesRead.readFromPropertiesFile("page"));
+        Browser.getDriver().get(PropertiesRead.readFromPropertiesFile(PAGE));
     }
 
     /**
@@ -79,6 +85,6 @@ public class Browser {
      * ожидание
      */
     public static void implicitlyWait() {
-        Browser.getDriver().manage().timeouts().implicitlyWait(Integer.parseInt(PropertiesRead.readFromPropertiesFile("timeout")), TimeUnit.SECONDS);
+        Browser.getDriver().manage().timeouts().implicitlyWait(Integer.parseInt(PropertiesRead.readFromPropertiesFile(TIMEOUT)), TimeUnit.SECONDS);
     }
 }

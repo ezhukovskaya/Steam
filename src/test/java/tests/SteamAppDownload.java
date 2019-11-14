@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
 import pageObjects.pages.InstallPage;
 import pageObjects.pages.MainPage;
+import utils.propertiesManager.PropertiesRead;
 import utils.waits.ExceptionTreat;
 import utils.waits.WebElementWait;
 
@@ -18,6 +19,7 @@ public class SteamAppDownload {
     private InstallPage installPage;
     @BeforeTest
     public void init() throws ParserConfigurationException, SAXException, IOException {
+        PropertiesRead.propertiesRead();
         mainPage = new MainPage();
         installPage = new InstallPage();
         Browser.getInstance();

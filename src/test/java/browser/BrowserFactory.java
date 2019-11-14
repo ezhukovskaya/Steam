@@ -1,30 +1,25 @@
 package browser;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.firefox.FirefoxProfile;
-import org.xml.sax.SAXException;
 import utils.propertiesManager.PropertiesRead;
 import utils.propertiesManager.XMLRead;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.util.HashMap;
 
 public class BrowserFactory {
-    private static String languageInProperty = "language";
-    private static String language = PropertiesRead.readFromPropertiesFile(languageInProperty);
-    private static String xmlPath = PropertiesRead.readFromPropertiesFile("xpath");
+    private static final String PATH = "path";
+    private static final String XMLPATH = "xmlpath";
+    private static String path;
 
     public static String download() {
-        return XMLRead.xmlReader("path", xmlPath);
+        path = PropertiesRead.readFromPropertiesFile(XMLPATH);
+        return XMLRead.xmlReader(PATH, path);
     }
-
 
     /**
      * выбор драйвера для браузера, указанного в config
@@ -32,7 +27,7 @@ public class BrowserFactory {
      * @param browserName имя браузера
      * @return driver
      */
-    public static WebDriver getBrowser(String browserName) {
+    public static WebDriver getBrowser(String browserName, String language) {
         browserName = browserName.toLowerCase();
         WebDriver driver = null;
         if (browserName.equals("chrome")) {
@@ -59,7 +54,7 @@ public class BrowserFactory {
         chromePrefs.put("profile.default_content_settings.popups", 0);
         chromePrefs.put("download.default_directory", download());
         chromePrefs.put("safebrowsing.enabled",true);
-        //chromePrefs.put("intl.accept_languages", language);
+        chromePrefs.put("intl.accept_languages", language);
         chromeOptions.setExperimentalOption("prefs",chromePrefs);
         return new ChromeDriver(chromeOptions);
     }
@@ -77,7 +72,7 @@ public class BrowserFactory {
         firefoxOptions.addPreference("browser.download.useDownloadDir",true);
         firefoxOptions.addPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-debian-package");
         firefoxOptions.addPreference("pdfjs.disabled", true);
-        firefoxOptions.addPreference("intl.accept_languages", "ru");
+        firefoxOptions.addPreference("intl.accept_languages", language);
         return new FirefoxDriver(firefoxOptions);
     }
 }
