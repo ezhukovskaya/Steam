@@ -20,9 +20,8 @@ public class BrowserFactory {
     private static String languageInProperty = "language";
     private static String language = PropertiesRead.readFromPropertiesFile(languageInProperty);
     private static String xmlPath = PropertiesRead.readFromPropertiesFile("xpath");
-    private static String downloadFilePath;//"/home/ITRANSITION.CORP/e.zhukovskaya/Downloads";
 
-    public static String download() throws IOException, SAXException, ParserConfigurationException {
+    public static String download() {
         return XMLRead.xmlReader("path", xmlPath);
     }
 
@@ -33,7 +32,7 @@ public class BrowserFactory {
      * @param browserName имя браузера
      * @return driver
      */
-    public static WebDriver getBrowser(String browserName) throws IOException, SAXException, ParserConfigurationException {
+    public static WebDriver getBrowser(String browserName) {
         browserName = browserName.toLowerCase();
         WebDriver driver = null;
         if (browserName.equals("chrome")) {
@@ -53,15 +52,15 @@ public class BrowserFactory {
      *
      * @return
      */
-    private static ChromeDriver getChromeInstance(String language) throws ParserConfigurationException, SAXException, IOException {
+    private static ChromeDriver getChromeInstance(String language) {
         WebDriverManager.chromedriver().setup();
         HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
         ChromeOptions chromeOptions = new ChromeOptions();
         chromePrefs.put("profile.default_content_settings.popups", 0);
         chromePrefs.put("download.default_directory", download());
         chromePrefs.put("safebrowsing.enabled",true);
+        //chromePrefs.put("intl.accept_languages", language);
         chromeOptions.setExperimentalOption("prefs",chromePrefs);
-        chromeOptions.addArguments("--lang="+"'"+language+"'");
         return new ChromeDriver(chromeOptions);
     }
 
@@ -70,7 +69,7 @@ public class BrowserFactory {
      *
      * @return
      */
-    private static FirefoxDriver getFirefoxInstance(String language) throws ParserConfigurationException, SAXException, IOException {
+    private static FirefoxDriver getFirefoxInstance(String language) {
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         firefoxOptions.addPreference("browser.download.folderList", 2);
@@ -78,7 +77,7 @@ public class BrowserFactory {
         firefoxOptions.addPreference("browser.download.useDownloadDir",true);
         firefoxOptions.addPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-debian-package");
         firefoxOptions.addPreference("pdfjs.disabled", true);
-        firefoxOptions.addPreference("intl.accept_languages", language);
+        firefoxOptions.addPreference("intl.accept_languages", "ru");
         return new FirefoxDriver(firefoxOptions);
     }
 }
