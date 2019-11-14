@@ -81,6 +81,4 @@ public class Browser {
     public static void implicitlyWait() {
         Browser.getDriver().manage().timeouts().implicitlyWait(Integer.parseInt(PropertiesRead.readFromPropertiesFile("timeout")), TimeUnit.SECONDS);
     }
-
-
 }

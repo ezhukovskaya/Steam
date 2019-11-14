@@ -36,4 +36,14 @@ public class SteamAppDownload {
         Assert.assertTrue(installPage.isDownloaded(), "File hasn't been downloaded");
         Browser.close();
     }
+
+    @Test
+    public void highestDiscountCalculationCheck() throws ParserConfigurationException, SAXException, IOException {
+        Browser.getInstance();
+        Browser.implicitlyWait();
+        Browser.goToUrl();
+        Browser.maximize();
+        mainPage.gamesCategoryPerform();
+        mainPage.goToActions();
+    }
 }
