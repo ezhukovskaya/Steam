@@ -7,12 +7,12 @@ import java.util.Properties;
 
 public class PropertiesRead {
     private static Properties prop = new Properties();
-    private String path = "src/test/java/resources/config.properties";
+    private static String path = "src/test/java/resources/config.properties";
 
     /**
      * конструктор с определением конфиг файла
      */
-    private PropertiesRead() {
+    public static void propertiesRead() {
         try {
             InputStream input = new FileInputStream(path);
             prop.load(input);

@@ -2,9 +2,13 @@ package pageObjects.pages;
 
 import browser.BrowserFactory;
 import org.openqa.selenium.By;
+import org.xml.sax.SAXException;
 import pageObjects.elements.Banner;
 import pageObjects.elements.Button;
 import utils.fileManager.FileManager;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 
 public class InstallPage {
     private By installButtonLocator = By.xpath("//*[@id=\"about_greeting\"]/div[4]/div[1]");
@@ -16,10 +20,10 @@ public class InstallPage {
     private String downloadFilePath;
     private String downloadFileName = "steam_latest.deb";
 
-    public InstallPage() {
+    public InstallPage() throws ParserConfigurationException, SAXException, IOException {
         goToInstallPageButton = new Button(goToInstallPageButtonName, installButtonLocator);
         welcomeToSteam = new Banner(welcomeToSteamName, welcomeToSteamLocator);
-        downloadFilePath = BrowserFactory.getDownloadFilePath();
+        downloadFilePath = BrowserFactory.download();
     }
 
     public void downloadClient() {

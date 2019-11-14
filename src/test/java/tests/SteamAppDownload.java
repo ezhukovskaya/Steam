@@ -4,16 +4,20 @@ import browser.Browser;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.xml.sax.SAXException;
 import pageObjects.pages.InstallPage;
 import pageObjects.pages.MainPage;
 import utils.waits.ExceptionTreat;
 import utils.waits.WebElementWait;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+
 public class SteamAppDownload {
     private MainPage mainPage;
     private InstallPage installPage;
     @BeforeTest
-    public void init() {
+    public void init() throws ParserConfigurationException, SAXException, IOException {
         mainPage = new MainPage();
         installPage = new InstallPage();
         Browser.getInstance();

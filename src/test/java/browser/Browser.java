@@ -1,9 +1,11 @@
 package browser;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.xml.sax.SAXException;
 import utils.propertiesManager.PropertiesRead;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -16,9 +18,9 @@ public class Browser {
     /**
      * Конструктор
      */
-    private Browser() {
-        BrowserFactory.getInstance();
-        driver = BrowserFactory.getInstance().getBrowser(browserName);
+    private Browser() throws ParserConfigurationException, SAXException, IOException {
+        PropertiesRead.propertiesRead();
+        driver = BrowserFactory.getBrowser(PropertiesRead.readFromPropertiesFile("browser"));
     }
 
     /**
@@ -35,7 +37,7 @@ public class Browser {
      *
      * @return
      */
-    public static Browser getInstance() {
+    public static Browser getInstance() throws IOException, SAXException, ParserConfigurationException {
         if (instanceOfSingletonBrowserClass == null) {
             instanceOfSingletonBrowserClass = new Browser();
         }
