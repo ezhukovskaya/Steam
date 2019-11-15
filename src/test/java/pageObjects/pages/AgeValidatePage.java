@@ -15,9 +15,8 @@ public class AgeValidatePage{
         age = new Button(ageName,ageValideLocator);
     }
 
-    public void ageValidate(WebElement theCheapest){
-        theCheapest.click();
+    public void ageValidate(){
         age.click();
-        new Select(Browser.findElement(By.id("ageYear"))).selectByValue("2000");
+        new Select(Browser.getDriver().findElement(By.id("ageYear"))).selectByVisibleText("2000");
     }
 }

@@ -15,9 +15,11 @@ public class ActionGamesPage {
     private By games = By.cssSelector(".discount_pct");
     private Button topSelling;
     private String topSellingName = "topSellingButton";
+    private AgeValidatePage ageValidatePage;
     ArrayList<WebElement> topSellingGames;
 
     public ActionGamesPage(){
+        ageValidatePage = new AgeValidatePage();
         topSelling = new Button(topSellingName, topSellingLocator);
     }
 
@@ -36,8 +38,7 @@ public class ActionGamesPage {
         return listOfGames;
     }
 
-    public WebElement theVeryGameClick(ArrayList<String> listOfGames){
-        WebElement theCheapest = null;
+    public void theVeryGameClick(ArrayList<String> listOfGames){
         for(int i=0;i<listOfGames.size();i++){
             Integer.parseInt(listOfGames.get(i).replaceAll("[\\D]", ""));
         }
@@ -45,11 +46,11 @@ public class ActionGamesPage {
         String theBiggestSale = listOfGames.get(listOfGames.size()-1);
         for(int i=0; i<topSellingGames.size();i++){
             if(topSellingGames.get(i).getText().equals(theBiggestSale)){
-                theCheapest = topSellingGames.get(i);
+                topSellingGames.get(i).click();
                 break;
             }
         }
-        return theCheapest;
+        ageValidatePage.ageValidate();
     }
 
 
