@@ -12,7 +12,8 @@ import java.util.Collections;
 
 public class ActionGamesPage {
     private By topSellingLocator = By.xpath("//*[@id=\"tab_select_TopSellers\"]/div");
-    private By games = By.cssSelector(".discount_pct");
+    private By gamesLocator = By.cssSelector(".discount_pct");
+    private By triplePriceLocator = By.xpath("//*[@id=\"TopSellersRows\"]/a[13]/div[2]");
     private Button topSelling;
     private String topSellingName = "topSellingButton";
     private AgeValidatePage ageValidatePage;
@@ -28,8 +29,8 @@ public class ActionGamesPage {
     }
 
     public ArrayList<String> getTopSellingGames() {
-        WebElementWait.waiterForWebElement(games);
-        topSellingGames = (ArrayList<WebElement>) Browser.getDriver().findElements(games);
+        WebElementWait.waiterForWebElement(gamesLocator);
+        topSellingGames = (ArrayList<WebElement>) Browser.getDriver().findElements(gamesLocator);
         ArrayList<String> listOfGames = new ArrayList<String>();
         for (WebElement topSellingGame : topSellingGames) {
             listOfGames.add(topSellingGame.getText());
@@ -39,18 +40,23 @@ public class ActionGamesPage {
     }
 
     public void theVeryGameClick(ArrayList<String> listOfGames){
-        for(int i=0;i<listOfGames.size();i++){
-            Integer.parseInt(listOfGames.get(i).replaceAll("[\\D]", ""));
+        for (String listOfGame : listOfGames) {
+            Integer.parseInt(listOfGame.replaceAll("[\\D]", ""));
         }
         Collections.sort(listOfGames);
         String theBiggestSale = listOfGames.get(listOfGames.size()-1);
-        for(int i=0; i<topSellingGames.size();i++){
-            if(topSellingGames.get(i).getText().equals(theBiggestSale)){
-                topSellingGames.get(i).click();
+        for (WebElement topSellingGame : topSellingGames) {
+            if (topSellingGame.getText().equals(theBiggestSale)) {
+                topSellingGame.click();
                 break;
             }
         }
         ageValidatePage.ageValidate();
+    }
+
+    public ArrayList<String> getPrices(int index){
+        ArrayList<WebElement> gamePrices = (ArrayList<WebElement>)Browser.getDriver().findElements(triplePriceLocator);
+        System.out.println();
     }
 
 
