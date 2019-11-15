@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
+import pageObjects.pages.ActionGamesPage;
 import pageObjects.pages.InstallPage;
 import pageObjects.pages.MainPage;
 import utils.propertiesManager.PropertiesRead;
@@ -13,15 +14,18 @@ import utils.waits.WebElementWait;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class SteamAppDownload {
     private MainPage mainPage;
     private InstallPage installPage;
+    private ActionGamesPage actionGamesPage;
     @BeforeTest
     public void init() throws ParserConfigurationException, SAXException, IOException {
         PropertiesRead.propertiesRead();
         mainPage = new MainPage();
         installPage = new InstallPage();
+        actionGamesPage = new ActionGamesPage();
         Browser.getInstance();
         Browser.implicitlyWait();
         Browser.goToUrl();
@@ -47,5 +51,10 @@ public class SteamAppDownload {
         Browser.maximize();
         mainPage.gamesCategoryPerform();
         mainPage.goToActions();
+        actionGamesPage.topSellingClick();
+        ArrayList<String> games = actionGamesPage.getTopSellingGames();
+        for(int i=0;i<games.size();i++){
+            System.out.println(games.get(i));
+        }
     }
 }
