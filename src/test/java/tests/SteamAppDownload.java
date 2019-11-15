@@ -45,16 +45,9 @@ public class SteamAppDownload {
 
     @Test
     public void highestDiscountCalculationCheck() throws ParserConfigurationException, SAXException, IOException {
-        Browser.getInstance();
-        Browser.implicitlyWait();
-        Browser.goToUrl();
-        Browser.maximize();
         mainPage.gamesCategoryPerform();
         mainPage.goToActions();
         actionGamesPage.topSellingClick();
-        ArrayList<String> games = actionGamesPage.getTopSellingGames();
-        for(int i=0;i<games.size();i++){
-            System.out.println(games.get(i));
-        }
+        actionGamesPage.theVeryGameClick(actionGamesPage.getTopSellingGames());
     }
 }

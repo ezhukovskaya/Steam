@@ -8,6 +8,7 @@ import utils.waits.WebElementWait;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class ActionGamesPage {
     private By topSellingLocator = By.xpath("//*[@id=\"tab_select_TopSellers\"]/div");
@@ -35,12 +36,22 @@ public class ActionGamesPage {
         return listOfGames;
     }
 
-    public void theVeryGameClick(ArrayList<String> listOfGames){
-        ArrayList<Integer> sales = new ArrayList<Integer>();
-        for (int i =0;i<listOfGames.size();i++) {
-            sales.get(i) = Integer.parseInt(listOfGames.get(i).replaceAll("[\\D]", ""));
+    public WebElement theVeryGameClick(ArrayList<String> listOfGames){
+        WebElement theCheapest = null;
+        for(int i=0;i<listOfGames.size();i++){
+            Integer.parseInt(listOfGames.get(i).replaceAll("[\\D]", ""));
         }
-
+        Collections.sort(listOfGames);
+        String theBiggestSale = listOfGames.get(listOfGames.size()-1);
+        for(int i=0; i<topSellingGames.size();i++){
+            if(topSellingGames.get(i).getText().equals(theBiggestSale)){
+                theCheapest = topSellingGames.get(i);
+                break;
+            }
+        }
+        return theCheapest;
     }
+
+
 
 }

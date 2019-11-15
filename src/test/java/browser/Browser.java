@@ -1,5 +1,6 @@
 package browser;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.xml.sax.SAXException;
 import utils.propertiesManager.PropertiesRead;
@@ -86,5 +87,9 @@ public class Browser {
      */
     public static void implicitlyWait() {
         Browser.getDriver().manage().timeouts().implicitlyWait(Integer.parseInt(PropertiesRead.readFromPropertiesFile(TIMEOUT)), TimeUnit.SECONDS);
+    }
+
+    public static void findElement(By by){
+        Browser.getDriver().findElement(by);
     }
 }
