@@ -44,10 +44,11 @@ public class SteamAppDownload {
     }
 
     @Test
-    public void highestDiscountCalculationCheck() throws ParserConfigurationException, SAXException, IOException {
+    public void highestDiscountCalculationCheck() {
         mainPage.gamesCategoryPerform();
         mainPage.goToActions();
         actionGamesPage.topSellingClick();
         actionGamesPage.theVeryGameClick(actionGamesPage.getTopSellingGames());
+        Assert.assertTrue(actionGamesPage.comparePrices(),"The prices are different");
     }
 }

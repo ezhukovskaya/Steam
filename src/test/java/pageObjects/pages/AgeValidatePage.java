@@ -19,6 +19,10 @@ public class AgeValidatePage{
         viewPage = new Button(viewPageName, viewPageLocator);
     }
 
+    public Button getViewPage(){
+        return viewPage;
+    }
+
     public void ageValidate(){
         age.click();
         new Select(Browser.getDriver().findElement(By.id("ageYear"))).selectByVisibleText("2000");

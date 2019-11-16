@@ -12,19 +12,21 @@ import java.util.Collections;
 
 public class ActionGamesPage {
     private By topSellingLocator = By.xpath("//*[@id=\"tab_select_TopSellers\"]/div");
-    private By gamesLocator = By.cssSelector(".discount_pct");
-    private By triplePriceLocator = By.xpath("//*[@id=\"TopSellersRows\"]/a[13]/div[2]");
+    private By gamesLocator = By.xpath("//a/div[@class=\"discount_block tab_item_discount\"]");
     private Button topSelling;
     private String topSellingName = "topSellingButton";
     private AgeValidatePage ageValidatePage;
+    private TheGameWithDiscountPage theGameWithDiscountPage;
+    private String theCheapest;
     ArrayList<WebElement> topSellingGames;
 
-    public ActionGamesPage(){
+    public ActionGamesPage() {
         ageValidatePage = new AgeValidatePage();
         topSelling = new Button(topSellingName, topSellingLocator);
+        theGameWithDiscountPage = new TheGameWithDiscountPage();
     }
 
-    public void topSellingClick(){
+    public void topSellingClick() {
         topSelling.click();
     }
 
@@ -39,26 +41,37 @@ public class ActionGamesPage {
         return listOfGames;
     }
 
-    public void theVeryGameClick(ArrayList<String> listOfGames){
+    private String theBiggestDiscount(ArrayList<String> listOfGames){
+        ArrayList<String> discounts = new ArrayList<String>();
         for (String listOfGame : listOfGames) {
-            Integer.parseInt(listOfGame.replaceAll("[\\D]", ""));
+            discounts.add(listOfGame.substring(0, listOfGame.indexOf("\n")));
         }
-        Collections.sort(listOfGames);
-        String theBiggestSale = listOfGames.get(listOfGames.size()-1);
+        Collections.sort(discounts);
+        return discounts.get(discounts.size()-1);
+    }
+
+    public void theVeryGameClick(ArrayList<String> listOfGames) {
+        String theBiggestSale = theBiggestDiscount(listOfGames);
+
         for (WebElement topSellingGame : topSellingGames) {
-            if (topSellingGame.getText().equals(theBiggestSale)) {
+            if (topSellingGame.getText().contains(theBiggestSale)) {
+                theCheapest = topSellingGame.getText();
                 topSellingGame.click();
                 break;
             }
         }
-        ageValidatePage.ageValidate();
+        if(ageValidatePage.getViewPage().isDisplayed()) {
+            ageValidatePage.ageValidate();
+        }
     }
 
-    public ArrayList<String> getPrices(int index){
-        ArrayList<WebElement> gamePrices = (ArrayList<WebElement>)Browser.getDriver().findElements(triplePriceLocator);
-        System.out.println();
+    public boolean comparePrices(){
+        boolean compare = false;
+        String fromTheGamePagePrices = theGameWithDiscountPage.getPricesFromPage();
+        fromTheGamePagePrices = fromTheGamePagePrices.substring(4);
+        if (theCheapest.equals(fromTheGamePagePrices)){
+            compare = true;
+        }
+        return compare;
     }
-
-
-
 }
