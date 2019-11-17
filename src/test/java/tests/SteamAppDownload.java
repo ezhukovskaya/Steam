@@ -10,6 +10,7 @@ import pageObjects.pages.InstallPage;
 import pageObjects.pages.MainPage;
 import utils.propertiesManager.PropertiesRead;
 import utils.waits.ExceptionTreat;
+import org.apache.log4j.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.io.IOException;
 public class SteamAppDownload {
     private final int LOW_DISCOUNT = 0;
     private final int HIGH_DISCOUNT = 1;
+    private static final Logger LOGGER = Logger.getLogger(SteamAppDownload.class);
     private MainPage mainPage;
     private InstallPage installPage;
     private AnyCategoryGamesPage anyCategoryGamesPage;
@@ -29,6 +31,7 @@ public class SteamAppDownload {
         Browser.getInstance();
         Browser.implicitlyWait();
         Browser.goToUrl();
+        LOGGER.info("Steam page is opened");
         Browser.maximize();
     }
 
@@ -36,6 +39,7 @@ public class SteamAppDownload {
     public void testSteamDownloadApp() {
         Assert.assertTrue(mainPage.isHomePageDisplayed(), "The page is not opened");
         mainPage.goToDownloadApp();
+        LOGGER.info("Clicked to download page");
         Assert.assertTrue(installPage.isWelcomeToSteamDisplayed(),"Welcome to Steam page is not opened");
         installPage.downloadClient();
         ExceptionTreat.getExceptionTimeoutTreat();
@@ -57,6 +61,7 @@ public class SteamAppDownload {
 
     @Test
     public void lowestDiscountCalculationCheck(){
+        Assert.assertTrue(mainPage.isHomePageDisplayed(), "The page is not opened");
         mainPage.gamesCategoryPerform();
         mainPage.goToIndie();
         anyCategoryGamesPage.topSellingClick();
