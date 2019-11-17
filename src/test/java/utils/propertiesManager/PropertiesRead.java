@@ -1,6 +1,7 @@
 package utils.propertiesManager;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -19,8 +20,15 @@ public class PropertiesRead {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
     }
+
+    public static void localDictionary() throws FileNotFoundException {
+        String language = readFromPropertiesFile("language");
+        if(language.equals("en")){
+            InputStream enInput = new FileInputStream(readFromPropertiesFile("enPath"));
+        }
+    }
+
     /**
      * чтение параметров из config
      *

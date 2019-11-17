@@ -13,10 +13,12 @@ public class MainPage {
     private By homePageBannerLocator = By.xpath("//*[@id=\"logo_holder\"]/a/img");
     private By gameCategoryLocator = By.xpath("//*[@id=\"genre_tab\"]/span/a[1]");
     private By actionsLocator = By.xpath("//*[@id=\"genre_flyout\"]/div/a[10]");
+    private By indieLocator = By.xpath("//*[@id=\"genre_flyout\"]/div/a[13]");
     //BUTTONS
     private Button goToDownloadPageButton;
     private Button goToGameCategory;
     private Button actionsButton;
+    private Button indieButton;
     //BANNERS
     private Banner homePageBanner;
     //NAMES FOR LOGS
@@ -24,6 +26,7 @@ public class MainPage {
     private String homePageBannerName = "homePageBanner";
     private String goToGameCategoryName = "goToGameCategory";
     private String actionsName = "actions";
+    private String indieName = "indie";
     //OBJECTS
     private Actions actions;
 
@@ -32,6 +35,7 @@ public class MainPage {
         homePageBanner = new Banner(homePageBannerName, homePageBannerLocator);
         goToGameCategory = new Button(goToGameCategoryName, gameCategoryLocator);
         actionsButton = new Button(actionsName, actionsLocator);
+        indieButton = new Button(indieName, indieLocator);
     }
 
     public void goToDownloadApp() {
@@ -51,6 +55,11 @@ public class MainPage {
     public void goToActions(){
         WebElementWait.waiterForWebElement(actionsLocator);
         actionsButton.click();
+    }
+
+    public void goToIndie(){
+        WebElementWait.waiterForWebElement(indieLocator);
+        indieButton.click();
     }
 
 }

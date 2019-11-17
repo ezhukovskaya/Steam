@@ -5,27 +5,27 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
-import pageObjects.pages.ActionGamesPage;
+import pageObjects.pages.AnyCategoryGamesPage;
 import pageObjects.pages.InstallPage;
 import pageObjects.pages.MainPage;
 import utils.propertiesManager.PropertiesRead;
 import utils.waits.ExceptionTreat;
-import utils.waits.WebElementWait;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class SteamAppDownload {
+    private final int LOW_DISCOUNT = 0;
+    private final int HIGH_DISCOUNT = 1;
     private MainPage mainPage;
     private InstallPage installPage;
-    private ActionGamesPage actionGamesPage;
+    private AnyCategoryGamesPage anyCategoryGamesPage;
     @BeforeTest
     public void init() throws ParserConfigurationException, SAXException, IOException {
         PropertiesRead.propertiesRead();
         mainPage = new MainPage();
         installPage = new InstallPage();
-        actionGamesPage = new ActionGamesPage();
+        anyCategoryGamesPage = new AnyCategoryGamesPage();
         Browser.getInstance();
         Browser.implicitlyWait();
         Browser.goToUrl();
@@ -45,10 +45,23 @@ public class SteamAppDownload {
 
     @Test
     public void highestDiscountCalculationCheck() {
+        Assert.assertTrue(mainPage.isHomePageDisplayed(), "The page is not opened");
         mainPage.gamesCategoryPerform();
         mainPage.goToActions();
-        actionGamesPage.topSellingClick();
-        actionGamesPage.theVeryGameClick(actionGamesPage.getTopSellingGames());
-        Assert.assertTrue(actionGamesPage.comparePrices(),"The prices are different");
+        Assert.assertTrue(anyCategoryGamesPage.actionPageIsDisplayed(),"Action page is not opened");
+        anyCategoryGamesPage.topSellingClick();
+        anyCategoryGamesPage.theGameClick(anyCategoryGamesPage.getTopSellingGames(), HIGH_DISCOUNT);
+        Assert.assertTrue(anyCategoryGamesPage.comparePrices(),"The prices are different");
+        Browser.close();
+    }
+
+    @Test
+    public void lowestDiscountCalculationCheck(){
+        mainPage.gamesCategoryPerform();
+        mainPage.goToIndie();
+        anyCategoryGamesPage.topSellingClick();
+        anyCategoryGamesPage.theGameClick(anyCategoryGamesPage.getTopSellingGames(),LOW_DISCOUNT);
+        Assert.assertTrue(anyCategoryGamesPage.comparePrices(), "The prices are different");
+        Browser.close();
     }
 }
