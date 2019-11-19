@@ -16,7 +16,6 @@ import java.util.Collections;
 public class AnyCategoryGamesPage {
     private final int LOW_DISCOUNT = 0;
     private final int HIGH_DISCOUNT = 1;
-    private final String BROWSING_ACTION = "BROWSING_ACTION";
     private By topSellingLocator = By.xpath("//*[@id=\"tab_select_TopSellers\"]");
     private By gamesLocator = By.xpath("//a/div[@class=\"discount_block tab_item_discount\"]");
     private By topSellingActiveLocator = By.xpath("//*[contains(@class,'active')]");
@@ -50,8 +49,6 @@ public class AnyCategoryGamesPage {
         }
         return active;
     }
-
-
 
     public void topSellingClick() {
         topSelling.click();
