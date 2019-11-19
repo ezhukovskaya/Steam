@@ -12,15 +12,6 @@ import utils.propertiesManager.XMLRead;
 import java.util.HashMap;
 
 public class BrowserFactory {
-    private static final String PATH = "path";
-    private static final String XMLPATH = "xmlpath";
-    private static String path;
-
-    public static String download() {
-        path = PropertiesRead.readFromPropertiesFile(XMLPATH);
-        return XMLRead.xmlReader(PATH, path);
-    }
-
     /**
      * выбор драйвера для браузера, указанного в config
      *
@@ -52,7 +43,7 @@ public class BrowserFactory {
         HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
         ChromeOptions chromeOptions = new ChromeOptions();
         chromePrefs.put("profile.default_content_settings.popups", 0);
-        chromePrefs.put("download.default_directory", download());
+        chromePrefs.put("download.default_directory", XMLRead.xmlReader("path"));
         chromePrefs.put("safebrowsing.enabled",true);
         chromePrefs.put("intl.accept_languages", language);
         chromeOptions.setExperimentalOption("prefs",chromePrefs);
@@ -68,7 +59,7 @@ public class BrowserFactory {
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         firefoxOptions.addPreference("browser.download.folderList", 2);
-        firefoxOptions.addPreference("browser.download.dir", download());
+        firefoxOptions.addPreference("browser.download.dir", XMLRead.xmlReader("path"));
         firefoxOptions.addPreference("browser.download.useDownloadDir",true);
         firefoxOptions.addPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-debian-package");
         firefoxOptions.addPreference("pdfjs.disabled", true);

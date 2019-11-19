@@ -25,6 +25,10 @@ public class AnyCategoryGamesPage {
     private String theChosenGame;
     ArrayList<WebElement> topSellingGames;
 
+    public boolean isBrowsingActionDisplayed(){
+        return 
+    }
+
     public AnyCategoryGamesPage() {
         ageValidatePage = new AgeValidatePage();
         topSelling = new Button(topSellingName, topSellingLocator);
@@ -43,7 +47,6 @@ public class AnyCategoryGamesPage {
     }
 
     public ArrayList<String> getTopSellingGames() {
-        WebElementWait.waiterForWebElement(gamesLocator);
         topSellingGames = (ArrayList<WebElement>) Browser.getDriver().findElements(gamesLocator);
         ArrayList<String> listOfGames = new ArrayList<String>();
         for (WebElement topSellingGame : topSellingGames) {

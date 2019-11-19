@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import pageObjects.elements.Banner;
 import pageObjects.elements.Button;
+import utils.propertiesManager.PropertiesRead;
 import utils.waits.WebElementWait;
 
 public class MainPage {
@@ -12,8 +13,8 @@ public class MainPage {
     private By downloadButtonLocator = By.xpath("//*[@id=\"global_action_menu\"]/div[1]/a");
     private By homePageBannerLocator = By.xpath("//*[@id=\"logo_holder\"]/a/img");
     private By gameCategoryLocator = By.xpath("//*[@id=\"genre_tab\"]/span/a[1]");
-    private By actionsLocator = By.xpath("//*[@id=\"genre_flyout\"]/div/a[10]");
-    private By indieLocator = By.xpath("//*[@id=\"genre_flyout\"]/div/a[13]");
+    private By actionsLocator = By.xpath(String.format("//*[@id=\"genre_flyout\"]//a[contains(text(), '%s')]", PropertiesRead.readFromPropertiesFile("action")));
+    private By indieLocator = By.xpath(String.format("//*[@id=\"genre_flyout\"]//a[contains(text(), '%s')]", PropertiesRead.readFromPropertiesFile("indie")));
     //BUTTONS
     private Button goToDownloadPageButton;
     private Button goToGameCategory;
@@ -53,12 +54,10 @@ public class MainPage {
     }
 
     public void goToActions(){
-        WebElementWait.waiterForWebElement(actionsLocator);
         actionsButton.click();
     }
 
     public void goToIndie(){
-        WebElementWait.waiterForWebElement(indieLocator);
         indieButton.click();
     }
 

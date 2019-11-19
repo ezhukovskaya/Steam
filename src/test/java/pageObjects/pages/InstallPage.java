@@ -6,6 +6,7 @@ import org.xml.sax.SAXException;
 import pageObjects.elements.Banner;
 import pageObjects.elements.Button;
 import utils.fileManager.FileManager;
+import utils.propertiesManager.XMLRead;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class InstallPage {
     public InstallPage() throws ParserConfigurationException, SAXException, IOException {
         goToInstallPageButton = new Button(goToInstallPageButtonName, installButtonLocator);
         welcomeToSteam = new Banner(welcomeToSteamName, welcomeToSteamLocator);
-        downloadFilePath = BrowserFactory.download();
+        downloadFilePath = XMLRead.xmlReader("path");
     }
 
     public void downloadClient() {

@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.xml.sax.SAXException;
 import utils.propertiesManager.PropertiesRead;
+import utils.propertiesManager.XMLRead;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -24,10 +25,14 @@ public class Browser {
      * Конструктор
      */
     private Browser() {
-        PropertiesRead.propertiesRead();
-        browserName = PropertiesRead.readFromPropertiesFile(BROWSER);
-        language = PropertiesRead.readFromPropertiesFile(LANGUAGE_IN_PROPERTY);
+        browserName = XMLRead.xmlReader(BROWSER);//PropertiesRead.readFromPropertiesFile(BROWSER);
+        language = XMLRead.xmlReader(LANGUAGE_IN_PROPERTY);//PropertiesRead.readFromPropertiesFile(LANGUAGE_IN_PROPERTY);
         driver = BrowserFactory.getBrowser(browserName, language);
+        //PropertiesRead.propertiesRead(language);
+    }
+
+    public static String getLanguage(){
+        return language;
     }
 
     /**
@@ -55,7 +60,7 @@ public class Browser {
      * переход на сайт
      */
     public static void goToUrl() {
-        Browser.getDriver().get(PropertiesRead.readFromPropertiesFile(PAGE));
+        Browser.getDriver().get(/*PropertiesRead.readFromPropertiesFile(PAGE)*/XMLRead.xmlReader("page"));
     }
 
     /**
@@ -86,7 +91,7 @@ public class Browser {
      * ожидание
      */
     public static void implicitlyWait() {
-        Browser.getDriver().manage().timeouts().implicitlyWait(Integer.parseInt(PropertiesRead.readFromPropertiesFile(TIMEOUT)), TimeUnit.SECONDS);
+        Browser.getDriver().manage().timeouts().implicitlyWait(Integer.parseInt(XMLRead.xmlReader(TIMEOUT)), TimeUnit.SECONDS);
     }
 
     public static void findElement(By by){

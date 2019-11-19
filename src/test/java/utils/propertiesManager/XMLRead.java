@@ -11,8 +11,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class XMLRead {
-    public static String xmlReader(String key, String path) {
-        File file = new File(path);
+    private static final String XMLPATH = "src/test/java/resources/testData.xml";
+    public static String xmlReader(String key) {
+        File file = new File(XMLPATH);
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
                 .newInstance();
         DocumentBuilder documentBuilder = null;
