@@ -1,7 +1,6 @@
 package utils.propertiesManager;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
@@ -26,14 +25,6 @@ public class PropertiesRead {
             System.out.println(e.getMessage());
         }
     }
-
-    public static void localDictionary() throws FileNotFoundException {
-        String language = readFromPropertiesFile("language");
-        if(language.equals("en")){
-            InputStream enInput = new FileInputStream(readFromPropertiesFile("enPath"));
-        }
-    }
-
     /**
      * чтение параметров из config
      *

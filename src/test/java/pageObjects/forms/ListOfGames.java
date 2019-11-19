@@ -1,7 +1,9 @@
 package pageObjects.forms;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import pageObjects.elements.Button;
+import pageObjects.pages.MainPage;
 import utils.propertiesManager.PropertiesRead;
 
 public class ListOfGames {;
@@ -13,15 +15,18 @@ public class ListOfGames {;
 
     private String actionsName = "actions";
     private String indieName = "indie";
+    static final Logger log = Logger.getLogger(ListOfGames.class);
 
 
     public void goToActions(){
         actionsButton = new Button(actionsName, actionsLocator);
         actionsButton.click();
+        log.info(actionsName + " clicked");
     }
 
     public void goToIndie(){
         indieButton = new Button(indieName, indieLocator);
         indieButton.click();
+        log.info(indieName + " clicked");
     }
 }

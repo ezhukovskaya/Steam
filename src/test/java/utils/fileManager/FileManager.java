@@ -2,9 +2,6 @@ package utils.fileManager;
 
 import java.io.File;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.awaitility.Awaitility.await;
-
 public class FileManager {
     private static boolean downloadedStatus = false;
     public static boolean isFileDownloaded(String downloadPath, String fileName){

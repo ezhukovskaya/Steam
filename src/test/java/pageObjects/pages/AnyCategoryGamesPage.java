@@ -1,13 +1,12 @@
 package pageObjects.pages;
 
 import browser.Browser;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 import pageObjects.elements.Button;
 import utils.propertiesManager.PropertiesRead;
 import utils.regex.RegEx;
-import utils.waits.WebElementWait;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,6 +25,7 @@ public class AnyCategoryGamesPage {
     private TheGameWithDiscountPage theGameWithDiscountPage;
     private String theChosenGame;
     ArrayList<WebElement> topSellingGames;
+    static final Logger log = Logger.getLogger(AnyCategoryGamesPage.class);
 
     public AnyCategoryGamesPage() {
         ageValidatePage = new AgeValidatePage();
@@ -52,6 +52,7 @@ public class AnyCategoryGamesPage {
 
     public void topSellingClick() {
         topSelling.click();
+        log.info(topSellingName + " clicked");
     }
 
     public ArrayList<String> getTopSellingGames() {
@@ -86,6 +87,7 @@ public class AnyCategoryGamesPage {
             if (topSellingGame.getText().contains(sale)) {
                 theChosenGame = RegEx.onlyPrices(topSellingGame.getText());
                 topSellingGame.click();
+                log.info("Game is clicked");
                 break;
             }
         }

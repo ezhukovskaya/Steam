@@ -1,15 +1,10 @@
 package pageObjects.pages;
 
-import browser.Browser;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.interactions.Actions;
 import pageObjects.elements.Banner;
 import pageObjects.elements.Button;
 import pageObjects.forms.MainMenu;
-import tests.BaseTest;
-import utils.propertiesManager.PropertiesRead;
-import utils.waits.WebElementWait;
 
 public class MainPage {
     //LOCATORS
@@ -32,7 +27,7 @@ public class MainPage {
 
     public void goToDownloadApp() {
         goToDownloadPageButton.click();
-        log.info(goToDownloadPageButton + "clicked");
+        log.info(goToDownloadPageButtonName + " clicked");
     }
 
 

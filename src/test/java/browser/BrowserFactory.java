@@ -43,7 +43,7 @@ public class BrowserFactory {
         HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
         ChromeOptions chromeOptions = new ChromeOptions();
         chromePrefs.put("profile.default_content_settings.popups", 0);
-        chromePrefs.put("download.default_directory", XMLRead.xmlReader("path"));
+        chromePrefs.put("download.default_directory", String.format(System.getProperty("user.dir"), XMLRead.xmlReader("path")));
         chromePrefs.put("safebrowsing.enabled",true);
         chromePrefs.put("intl.accept_languages", language);
         chromeOptions.setExperimentalOption("prefs",chromePrefs);

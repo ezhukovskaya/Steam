@@ -11,16 +11,6 @@ import java.time.Duration;
 public class ExceptionTreat {
     private static ExceptionTreat exceptionTreat;
 
-    /**
-     * ожидание + обработка исключения
-     */
-    public static void getExceptionTimeoutTreat() {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
-        }
-    }
         public static FluentWait<WebDriver> getFluentWait() {
             return new FluentWait<>(Browser.getDriver())
                     .withTimeout(Duration.ofSeconds(Integer.parseInt(XMLRead.xmlReader("timeout"))))

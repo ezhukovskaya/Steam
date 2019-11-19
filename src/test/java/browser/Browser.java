@@ -1,14 +1,8 @@
 package browser;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.xml.sax.SAXException;
-import utils.propertiesManager.PropertiesRead;
 import utils.propertiesManager.XMLRead;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class Browser {
