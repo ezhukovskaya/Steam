@@ -1,6 +1,6 @@
 package pageObjects.elements;
 
-import base.BaseElement;
+import framework.base.BaseElement;
 import org.openqa.selenium.By;
 
 public class Banner extends BaseElement {

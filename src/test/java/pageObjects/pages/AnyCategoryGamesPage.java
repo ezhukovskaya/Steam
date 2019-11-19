@@ -1,12 +1,12 @@
 package pageObjects.pages;
 
 import browser.Browser;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 import pageObjects.elements.Button;
+import utils.propertiesManager.PropertiesRead;
 import utils.regex.RegEx;
-import utils.waits.WebElementWait;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,35 +15,47 @@ import java.util.Collections;
 public class AnyCategoryGamesPage {
     private final int LOW_DISCOUNT = 0;
     private final int HIGH_DISCOUNT = 1;
-    private final String BROWSING_ACTION = "Browsing Action";
-    private By topSellingLocator = By.xpath("//*[@id=\"tab_select_TopSellers\"]/div");
+    private By topSellingLocator = By.xpath("//*[@id=\"tab_select_TopSellers\"]");
     private By gamesLocator = By.xpath("//a/div[@class=\"discount_block tab_item_discount\"]");
+    private By topSellingActiveLocator = By.xpath("//*[contains(@class,'active')]");
+    private Button topSellingActive;
     private Button topSelling;
     private String topSellingName = "topSellingButton";
     private AgeValidatePage ageValidatePage;
     private TheGameWithDiscountPage theGameWithDiscountPage;
     private String theChosenGame;
     ArrayList<WebElement> topSellingGames;
+    static final Logger log = Logger.getLogger(AnyCategoryGamesPage.class);
 
     public AnyCategoryGamesPage() {
         ageValidatePage = new AgeValidatePage();
         topSelling = new Button(topSellingName, topSellingLocator);
+        topSellingActive = new Button(topSellingName,topSellingActiveLocator);
         theGameWithDiscountPage = new TheGameWithDiscountPage();
     }
 
-    public boolean actionPageIsDisplayed(){
+    public boolean genrePageIsDisplayed(String genre){
+        String gameGenre = PropertiesRead.readFromPropertiesFile(genre);
         boolean display = false;
-        if (Browser.getDriver().findElement(By.className("pageheader")).getText().equals(BROWSING_ACTION))
+        if (Browser.getDriver().findElement(By.className("pageheader")).getText().equals(gameGenre))
             display = true;
         return display;
     }
 
+    public boolean isTopSellingActive(){
+        boolean active = false;
+        if(topSellingActive.isDisplayed()){
+            active = true;
+        }
+        return active;
+    }
+
     public void topSellingClick() {
         topSelling.click();
+        log.info(topSellingName + " clicked");
     }
 
     public ArrayList<String> getTopSellingGames() {
-        WebElementWait.waiterForWebElement(gamesLocator);
         topSellingGames = (ArrayList<WebElement>) Browser.getDriver().findElements(gamesLocator);
         ArrayList<String> listOfGames = new ArrayList<String>();
         for (WebElement topSellingGame : topSellingGames) {
@@ -75,6 +87,7 @@ public class AnyCategoryGamesPage {
             if (topSellingGame.getText().contains(sale)) {
                 theChosenGame = RegEx.onlyPrices(topSellingGame.getText());
                 topSellingGame.click();
+                log.info("Game is clicked");
                 break;
             }
         }

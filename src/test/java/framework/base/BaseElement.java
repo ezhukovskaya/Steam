@@ -1,4 +1,4 @@
-package base;
+package framework.base;
 
 import browser.Browser;
 import org.openqa.selenium.By;
@@ -18,9 +18,6 @@ public abstract class BaseElement {
         Browser.getDriver().findElement(buttonLocator).click();
     }
 
-    public String getElementName(){
-        return elementName;
-    }
     public WebElement getElementByLocator(By by) {
         return Browser.getDriver().findElement(by);
     }

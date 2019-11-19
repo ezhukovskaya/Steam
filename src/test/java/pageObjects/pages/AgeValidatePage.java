@@ -3,13 +3,12 @@ package pageObjects.pages;
 import browser.Browser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
-import pageObjects.elements.Button;
 import org.openqa.selenium.support.ui.Select;
+import pageObjects.elements.Button;
 
 public class AgeValidatePage {
     private By ageValideLocator = By.xpath("//*[@id=\"ageYear\"]");
-    private By viewPageLocator = By.xpath("//*[@id=\"app_agegate\"]/div[1]/div[3]/a[1]");
+    private By viewPageLocator = By.xpath("//a[@onclick='ViewProductPage()']");
     private Button age;
     private Button viewPage;
     private String ageName = "ageButton";

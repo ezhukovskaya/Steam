@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <credentials>
-        <path>src/test/java/downloadDirectory</path>
+        <path>src/test/java/downloaded</path>
+        <browser>chrome</browser>
+        <timeout>30</timeout>
+        <language>ru</language>
+        <page>https://store.steampowered.com/</page>
+        <rufile>src/test/java/resources/ruConfig.properties</rufile>
+        <enfile>src/test/java/resources/enConfig.properties</enfile>
+        <file>src/test/java/resources/log4j.properties</file>
 </credentials>
