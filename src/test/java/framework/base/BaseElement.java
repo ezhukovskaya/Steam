@@ -1,4 +1,4 @@
-package base;
+package framework.base;
 
 import browser.Browser;
 import org.openqa.selenium.By;

@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import pageObjects.elements.Banner;
 import pageObjects.elements.Button;
-import utils.fileManager.FileManager;
+import framework.utils.fileManager.FileManager;
 import utils.propertiesManager.XMLRead;
 
 public class InstallPage {
@@ -21,7 +21,7 @@ public class InstallPage {
     public InstallPage() {
         goToInstallPageButton = new Button(goToInstallPageButtonName, installButtonLocator);
         welcomeToSteam = new Banner(welcomeToSteamName, welcomeToSteamLocator);
-        downloadFilePath = XMLRead.xmlReader("path");
+        downloadFilePath = String.format(System.getProperty("user.dir"), XMLRead.xmlReader("path"));
     }
 
     public void downloadClient() {
