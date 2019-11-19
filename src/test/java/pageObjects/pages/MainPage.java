@@ -1,11 +1,13 @@
 package pageObjects.pages;
 
 import browser.Browser;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import pageObjects.elements.Banner;
 import pageObjects.elements.Button;
 import pageObjects.forms.MainMenu;
+import tests.BaseTest;
 import utils.propertiesManager.PropertiesRead;
 import utils.waits.WebElementWait;
 
@@ -20,6 +22,7 @@ public class MainPage {
     //NAMES FOR LOGS
     private String goToDownloadPageButtonName = "goToDownloadPageButton";
     private String homePageBannerName = "homePageBanner";
+    static final Logger log = Logger.getLogger(MainPage.class);
 
 
     public MainPage() {
@@ -29,6 +32,7 @@ public class MainPage {
 
     public void goToDownloadApp() {
         goToDownloadPageButton.click();
+        log.info(goToDownloadPageButton + "clicked");
     }
 
 

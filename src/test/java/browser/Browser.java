@@ -16,7 +16,6 @@ public class Browser {
     private static Browser instanceOfSingletonBrowserClass = null;
     private static final String LANGUAGE_IN_PROPERTY = "language";
     private static final String BROWSER = "browser";
-    private static final String PAGE = "page";
     private static final String TIMEOUT = "timeout";
     private static String language;
     private static String browserName;
@@ -25,10 +24,9 @@ public class Browser {
      * Конструктор
      */
     private Browser() {
-        browserName = XMLRead.xmlReader(BROWSER);//PropertiesRead.readFromPropertiesFile(BROWSER);
-        language = XMLRead.xmlReader(LANGUAGE_IN_PROPERTY);//PropertiesRead.readFromPropertiesFile(LANGUAGE_IN_PROPERTY);
+        browserName = XMLRead.xmlReader(BROWSER);
+        language = XMLRead.xmlReader(LANGUAGE_IN_PROPERTY);
         driver = BrowserFactory.getBrowser(browserName, language);
-        //PropertiesRead.propertiesRead(language);
     }
 
     public static String getLanguage(){
@@ -49,7 +47,7 @@ public class Browser {
      *
      * @return
      */
-    public static Browser getInstance() throws IOException, SAXException, ParserConfigurationException {
+    public static Browser getInstance() {
         if (instanceOfSingletonBrowserClass == null) {
             instanceOfSingletonBrowserClass = new Browser();
         }
@@ -60,7 +58,7 @@ public class Browser {
      * переход на сайт
      */
     public static void goToUrl() {
-        Browser.getDriver().get(/*PropertiesRead.readFromPropertiesFile(PAGE)*/XMLRead.xmlReader("page"));
+        Browser.getDriver().get(XMLRead.xmlReader("page"));
     }
 
     /**
@@ -68,16 +66,6 @@ public class Browser {
      */
     public static void maximize() {
         Browser.getDriver().manage().window().maximize();
-    }
-
-    /**
-     * переход на заданную вкладку
-     *
-     * @param tabNumber номер вкладки
-     * @param tabs      массив вкладок
-     */
-    public static void switchTo(int tabNumber, ArrayList<String> tabs) {
-        Browser.getDriver().switchTo().window(tabs.get(tabNumber));
     }
 
     /**
@@ -94,7 +82,4 @@ public class Browser {
         Browser.getDriver().manage().timeouts().implicitlyWait(Integer.parseInt(XMLRead.xmlReader(TIMEOUT)), TimeUnit.SECONDS);
     }
 
-    public static void findElement(By by){
-        Browser.getDriver().findElement(by);
-    }
 }

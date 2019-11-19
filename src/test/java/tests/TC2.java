@@ -3,8 +3,12 @@ package tests;
 import browser.Browser;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pageObjects.pages.AnyCategoryGamesPage;
 
 public class TC2 extends BaseTest{
+    private final int HIGH_DISCOUNT = 1;
+    protected final String BROWSING_ACTION = "BROWSING_ACTION";
+    protected AnyCategoryGamesPage anyCategoryGamesPage = new AnyCategoryGamesPage();
     @Test
     public void highestDiscountCalculationCheck() {
         Assert.assertTrue(mainPage.isHomePageDisplayed(), "The page is not opened");

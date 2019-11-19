@@ -14,21 +14,10 @@ public abstract class BaseElement {
         this.elementName = name;
     }
 
-    public String getText(){
-        return Browser.getDriver().findElement(buttonLocator).getText();
-    }
-
-    public By getButtonLocator(){
-        return buttonLocator;
-    }
-
     public void click(){
         Browser.getDriver().findElement(buttonLocator).click();
     }
 
-    public String getElementName(){
-        return elementName;
-    }
     public WebElement getElementByLocator(By by) {
         return Browser.getDriver().findElement(by);
     }
