@@ -1,9 +1,8 @@
 package utils.propertiesManager;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 public class PropertiesRead {
@@ -22,7 +21,7 @@ public class PropertiesRead {
         }
         try {
             InputStream input = new FileInputStream(path);
-            prop.load(input);
+            prop.load(new InputStreamReader(input, StandardCharsets.UTF_8));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

@@ -9,7 +9,6 @@ import pageObjects.pages.AnyCategoryGamesPage;
 import pageObjects.pages.InstallPage;
 import pageObjects.pages.MainPage;
 import utils.propertiesManager.PropertiesRead;
-import utils.propertiesManager.XMLRead;
 import utils.waits.ExceptionTreat;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -20,6 +19,7 @@ public class SteamAppDownload {
     private final int LOW_DISCOUNT = 0;
     private final int HIGH_DISCOUNT = 1;
     private final String BROWSING_ACTION = "BROWSING_ACTION";
+    private final String BROWSING_INDIE = "BROWSING_INDIE";
     private String expectedGameGenre;
     private MainPage mainPage;
     private InstallPage installPage;
@@ -28,8 +28,7 @@ public class SteamAppDownload {
     @BeforeTest
     public void init() throws ParserConfigurationException, SAXException, IOException {
         Browser.getInstance();
-       // PropertiesRead.propertiesRead(Browser.getLanguage());
-        expectedGameGenre = PropertiesRead.readFromPropertiesFile(BROWSING_ACTION);
+        PropertiesRead.propertiesRead(Browser.getLanguage());
         mainPage = new MainPage();
         installPage = new InstallPage();
         anyCategoryGamesPage = new AnyCategoryGamesPage();
@@ -54,10 +53,10 @@ public class SteamAppDownload {
     @Test
     public void highestDiscountCalculationCheck() {
         Assert.assertTrue(mainPage.isHomePageDisplayed(), "The page is not opened");
-        mainPage.gamesCategoryPerform();
-        mainPage.goToActions();
-        Assert.assertTrue(anyCategoryGamesPage.actionPageIsDisplayed(),"Action page is not opened");
+        mainPage.goToMainMenu().goToGamesCategory().goToActions();
+        Assert.assertTrue(anyCategoryGamesPage.genrePageIsDisplayed(BROWSING_ACTION),"Action page is not opened");
         anyCategoryGamesPage.topSellingClick();
+        Assert.assertTrue(anyCategoryGamesPage.isTopSellingActive(),"Top Selling is not opened");
         anyCategoryGamesPage.theGameClick(anyCategoryGamesPage.getTopSellingGames(), HIGH_DISCOUNT);
         Assert.assertTrue(anyCategoryGamesPage.comparePrices(),"The prices are different");
         Browser.close();
@@ -65,9 +64,11 @@ public class SteamAppDownload {
 
     @Test
     public void lowestDiscountCalculationCheck(){
-        mainPage.gamesCategoryPerform();
-        mainPage.goToIndie();
+        Assert.assertTrue(mainPage.isHomePageDisplayed(), "The page is not opened");
+        mainPage.goToMainMenu().goToGamesCategory().goToIndie();
+        Assert.assertTrue(anyCategoryGamesPage.genrePageIsDisplayed(BROWSING_INDIE),"Indie page is not opened");
         anyCategoryGamesPage.topSellingClick();
+        Assert.assertTrue(anyCategoryGamesPage.isTopSellingActive(),"Top Selling is not opened");
         anyCategoryGamesPage.theGameClick(anyCategoryGamesPage.getTopSellingGames(),LOW_DISCOUNT);
         Assert.assertTrue(anyCategoryGamesPage.comparePrices(), "The prices are different");
         Browser.close();
