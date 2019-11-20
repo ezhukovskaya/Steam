@@ -1,6 +1,5 @@
 package tests;
 
-import framework.browser.Browser;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageObjects.pages.AnyCategoryGamesPage;
@@ -19,6 +18,5 @@ public class TC3 extends BaseTest {
         Assert.assertTrue(anyCategoryGamesPage.isTopSellingActive(), "Top Selling is not opened");
         anyCategoryGamesPage.theGameClick(anyCategoryGamesPage.getTopSellingGames(), LOW_DISCOUNT);
         Assert.assertTrue(anyCategoryGamesPage.comparePrices(), "The prices are different");
-        Browser.close();
     }
 }

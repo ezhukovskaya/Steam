@@ -1,6 +1,5 @@
 package tests;
 
-import framework.browser.Browser;
 import framework.utils.waits.ExceptionTreat;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -17,6 +16,5 @@ public class TC1 extends BaseTest {
         installPage.downloadClient();
         ExceptionTreat.getFluentWait();
         Assert.assertTrue(installPage.isDownloaded(), "File hasn't been downloaded");
-        Browser.close();
     }
 }
