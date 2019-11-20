@@ -1,5 +1,6 @@
 package framework.utils.propertiesManager;
 
+import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import org.w3c.dom.Document;
@@ -12,9 +13,11 @@ import java.io.IOException;
 
 public class XMLRead {
     private static final String XMLPATH = "src/test/java/resources/testData.xml";
+    static final Logger log = Logger.getLogger(XMLRead.class);
 
     public static String xmlReader(String key) {
         File file = new File(XMLPATH);
+        log.info("Data of " + key + " is read from XML");
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
                 .newInstance();
         DocumentBuilder documentBuilder = null;

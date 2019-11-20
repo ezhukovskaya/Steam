@@ -1,17 +1,30 @@
 package framework.utils.propertiesManager;
 
-import java.io.*;
+import framework.browser.Browser;
+import org.apache.log4j.Logger;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 public class PropertiesRead {
     private static Properties prop = new Properties();
     private static String path;
+    static final Logger log = Logger.getLogger(PropertiesRead.class);
+
 
     /**
-     * конструктор с определением конфиг файла
+     * чтение параметров из config
+     *
+     * @param key передаваемое название параметра
+     * @return prop.getProperty(key)
      */
-    public static void propertiesRead(String language) {
+    public static String readFromPropertiesFile(String key) {
+        String language = Browser.getLanguage();
+        log.info("Data of " + key + " is read from property");
         if (language.equals("en")) {
             path = XMLRead.xmlReader("enfile");
         }
@@ -22,17 +35,8 @@ public class PropertiesRead {
             InputStream input = new FileInputStream(path);
             prop.load(new InputStreamReader(input, StandardCharsets.UTF_8));
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
         }
-    }
-
-    /**
-     * чтение параметров из config
-     *
-     * @param key передаваемое название параметра
-     * @return prop.getProperty(key)
-     */
-    public static String readFromPropertiesFile(String key) {
         return prop.getProperty(key);
     }
 }

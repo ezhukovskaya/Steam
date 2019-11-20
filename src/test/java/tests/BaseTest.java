@@ -1,7 +1,6 @@
 package tests;
 
 import framework.browser.Browser;
-import framework.utils.propertiesManager.PropertiesRead;
 import framework.utils.propertiesManager.XMLRead;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -17,11 +16,9 @@ public abstract class BaseTest {
     public void init() {
         PropertyConfigurator.configure(XMLRead.xmlReader("file"));
         Browser.getInstance();
-        PropertiesRead.propertiesRead(Browser.getLanguage());
         mainPage = new MainPage();
-        Browser.implicitlyWait();
+        Browser.setImplicitlyWait();
         Browser.goToUrl();
-        log.info("Go to Steam page");
         Browser.maximize();
     }
 

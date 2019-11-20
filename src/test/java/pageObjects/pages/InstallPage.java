@@ -4,12 +4,12 @@ import framework.utils.fileManager.FileManager;
 import framework.utils.propertiesManager.XMLRead;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
-import pageObjects.elements.Banner;
-import pageObjects.elements.Button;
+import framework.base.elements.Banner;
+import framework.base.elements.Button;
 
 public class InstallPage {
-    private By installButtonLocator = By.xpath("//*[@id=\"about_greeting\"]/div[4]/div[1]");
-    private By welcomeToSteamLocator = By.xpath("//*[@id=\"about_greeting\"]/div[1]/img");
+    private By installButtonLocator = By.xpath("//*[@class='about_install_steam_link']");
+    private By welcomeToSteamLocator = By.xpath("//*[@class='steam_logo']");
     private Button goToInstallPageButton;
     private Banner welcomeToSteam;
     private String goToInstallPageButtonName = "goToInstallPageButton";
@@ -26,8 +26,8 @@ public class InstallPage {
     }
 
     public void downloadClient() {
-        goToInstallPageButton.click();
         log.info(goToInstallPageButtonName + " clicked");
+        goToInstallPageButton.click();
     }
 
     public boolean isWelcomeToSteamDisplayed() {

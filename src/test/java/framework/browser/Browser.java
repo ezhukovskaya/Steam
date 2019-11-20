@@ -1,19 +1,21 @@
 package framework.browser;
 
 import framework.utils.propertiesManager.XMLRead;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 import java.util.concurrent.TimeUnit;
 
 public class Browser {
     private static WebDriver driver;
-    private static Browser instanceOfSingletonBrowserClass = null;
+    private static volatile Browser instanceOfSingletonBrowserClass;
     private static final String LANGUAGE_IN_PROPERTY = "language";
     private static final String BROWSER = "browser";
     private static final String TIMEOUT = "timeout";
     private static final String PAGE = "page";
     private static String language;
     private static String browserName;
+    static final Logger log = Logger.getLogger(Browser.class);
 
     /**
      * Конструктор
@@ -43,16 +45,23 @@ public class Browser {
      * @return
      */
     public static Browser getInstance() {
-        if (instanceOfSingletonBrowserClass == null) {
-            instanceOfSingletonBrowserClass = new Browser();
+        Browser localInstance = instanceOfSingletonBrowserClass;
+        if (localInstance == null) {
+            synchronized (Browser.class) {
+                localInstance = instanceOfSingletonBrowserClass;
+                if (localInstance == null) {
+                    instanceOfSingletonBrowserClass = localInstance = new Browser();
+                }
+            }
         }
-        return instanceOfSingletonBrowserClass;
+        return localInstance;
     }
 
     /**
      * переход на сайт
      */
     public static void goToUrl() {
+        log.info("Go to " + PAGE);
         Browser.getDriver().get(XMLRead.xmlReader(PAGE));
     }
 
@@ -60,6 +69,7 @@ public class Browser {
      * увеличение окна браузера на весь экран
      */
     public static void maximize() {
+        log.info("Full screen mode is on");
         Browser.getDriver().manage().window().maximize();
     }
 
@@ -73,7 +83,8 @@ public class Browser {
     /**
      * ожидание
      */
-    public static void implicitlyWait() {
+    public static void setImplicitlyWait() {
+        log.info("Timeout is " + XMLRead.xmlReader(TIMEOUT));
         Browser.getDriver().manage().timeouts().implicitlyWait(Integer.parseInt(XMLRead.xmlReader(TIMEOUT)), TimeUnit.SECONDS);
     }
 

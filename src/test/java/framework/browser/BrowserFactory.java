@@ -2,6 +2,7 @@ package framework.browser;
 
 import framework.utils.propertiesManager.XMLRead;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 
 public class BrowserFactory {
     private static final String PATH = "path";
+    static final Logger log = Logger.getLogger(BrowserFactory.class);
     /**
      * выбор драйвера для браузера, указанного в config
      *
@@ -20,11 +22,13 @@ public class BrowserFactory {
      */
     public static WebDriver getBrowser(String browserName, String language) {
         browserName = browserName.toLowerCase();
+        log.info("Language of web-site is " + language);
         WebDriver driver = null;
         if (browserName.equals("chrome")) {
+            log.info("Chosen browser is chrome");
             driver = getChromeInstance(language);
-        }
-        if (browserName.equals("firefox")) {
+        } else if (browserName.equals("firefox")) {
+            log.info("Chosen browser is firefox");
             driver = getFirefoxInstance(language);
         } else {
             System.out.println("Браузер указан неверно");
