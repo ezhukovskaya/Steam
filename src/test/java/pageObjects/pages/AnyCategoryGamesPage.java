@@ -1,12 +1,12 @@
 package pageObjects.pages;
 
-import browser.Browser;
+import framework.browser.Browser;
+import framework.utils.propertiesManager.PropertiesRead;
+import framework.utils.regex.RegEx;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pageObjects.elements.Button;
-import utils.propertiesManager.PropertiesRead;
-import utils.regex.RegEx;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,27 +24,28 @@ public class AnyCategoryGamesPage {
     private AgeValidatePage ageValidatePage;
     private TheGameWithDiscountPage theGameWithDiscountPage;
     private String theChosenGame;
+    private String genreBannerClassname = "pageheader";
     ArrayList<WebElement> topSellingGames;
     static final Logger log = Logger.getLogger(AnyCategoryGamesPage.class);
 
     public AnyCategoryGamesPage() {
         ageValidatePage = new AgeValidatePage();
         topSelling = new Button(topSellingName, topSellingLocator);
-        topSellingActive = new Button(topSellingName,topSellingActiveLocator);
+        topSellingActive = new Button(topSellingName, topSellingActiveLocator);
         theGameWithDiscountPage = new TheGameWithDiscountPage();
     }
 
-    public boolean genrePageIsDisplayed(String genre){
+    public boolean genrePageIsDisplayed(String genre) {
         String gameGenre = PropertiesRead.readFromPropertiesFile(genre);
         boolean display = false;
-        if (Browser.getDriver().findElement(By.className("pageheader")).getText().equals(gameGenre))
+        if (Browser.getDriver().findElement(By.className(genreBannerClassname)).getText().equals(gameGenre))
             display = true;
         return display;
     }
 
-    public boolean isTopSellingActive(){
+    public boolean isTopSellingActive() {
         boolean active = false;
-        if(topSellingActive.isDisplayed()){
+        if (topSellingActive.isDisplayed()) {
             active = true;
         }
         return active;
@@ -103,8 +104,7 @@ public class AnyCategoryGamesPage {
         boolean compare = false;
         String fromTheGamePagePrices = theGameWithDiscountPage.getPricesFromPage();
         fromTheGamePagePrices = RegEx.onlyPrices(fromTheGamePagePrices);
-        //fromTheGamePagePrices = fromTheGamePagePrices.substring(0,fromTheGamePagePrices.indexOf(" "));
-        if(fromTheGamePagePrices.length() > theChosenGame.length()){
+        if (fromTheGamePagePrices.length() > theChosenGame.length()) {
             fromTheGamePagePrices = fromTheGamePagePrices.substring(4);
         }
         if (theChosenGame.equals(fromTheGamePagePrices)) {

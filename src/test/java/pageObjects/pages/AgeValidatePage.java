@@ -1,6 +1,6 @@
 package pageObjects.pages;
 
-import browser.Browser;
+import framework.browser.Browser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.Select;
@@ -13,6 +13,8 @@ public class AgeValidatePage {
     private Button viewPage;
     private String ageName = "ageButton";
     private String viewPageName = "viewPage";
+    private String bornYear = "2000";
+    private String ageListId = "ageYear";
 
     public AgeValidatePage() {
         age = new Button(ageName, ageValideLocator);
@@ -25,19 +27,15 @@ public class AgeValidatePage {
             if (viewPage.isDisplayed()) {
                 existence = true;
             }
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             existence = false;
         }
         return existence;
     }
 
-    public Button getViewPage() {
-        return viewPage;
-    }
-
     public void ageValidate() {
         age.click();
-        new Select(Browser.getDriver().findElement(By.id("ageYear"))).selectByVisibleText("2000");
+        new Select(Browser.getDriver().findElement(By.id(ageListId))).selectByVisibleText(bornYear);
         viewPage.click();
     }
 }

@@ -35,7 +35,7 @@ public class MainPage {
         return homePageBanner.isDisplayed();
     }
 
-    public MainMenu goToMainMenu(){
+    public MainMenu goToMainMenu() {
         return new MainMenu();
     }
 }

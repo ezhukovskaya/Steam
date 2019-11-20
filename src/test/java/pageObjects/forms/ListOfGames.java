@@ -1,12 +1,12 @@
 package pageObjects.forms;
 
+import framework.utils.propertiesManager.PropertiesRead;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import pageObjects.elements.Button;
-import pageObjects.pages.MainPage;
-import utils.propertiesManager.PropertiesRead;
 
-public class ListOfGames {;
+public class ListOfGames {
+    ;
     private By actionsLocator = By.xpath(String.format("//*[@id=\"genre_flyout\"]//a[contains(text(), '%s')]", PropertiesRead.readFromPropertiesFile("action")));
     private By indieLocator = By.xpath(String.format("//*[@id=\"genre_flyout\"]//a[contains(text(), '%s')]", PropertiesRead.readFromPropertiesFile("indie")));
 
@@ -18,13 +18,13 @@ public class ListOfGames {;
     static final Logger log = Logger.getLogger(ListOfGames.class);
 
 
-    public void goToActions(){
+    public void goToActions() {
         actionsButton = new Button(actionsName, actionsLocator);
         actionsButton.click();
         log.info(actionsName + " clicked");
     }
 
-    public void goToIndie(){
+    public void goToIndie() {
         indieButton = new Button(indieName, indieLocator);
         indieButton.click();
         log.info(indieName + " clicked");

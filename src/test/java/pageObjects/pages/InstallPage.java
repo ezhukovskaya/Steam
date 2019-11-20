@@ -1,11 +1,11 @@
 package pageObjects.pages;
 
+import framework.utils.fileManager.FileManager;
+import framework.utils.propertiesManager.XMLRead;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import pageObjects.elements.Banner;
 import pageObjects.elements.Button;
-import framework.utils.fileManager.FileManager;
-import utils.propertiesManager.XMLRead;
 
 public class InstallPage {
     private By installButtonLocator = By.xpath("//*[@id=\"about_greeting\"]/div[4]/div[1]");
@@ -16,12 +16,13 @@ public class InstallPage {
     private String welcomeToSteamName = "welcomeBanner";
     private String downloadFilePath;
     private String downloadFileName = "steam_latest.deb";
+    private final String PATH = "path";
     static final Logger log = Logger.getLogger(InstallPage.class);
 
     public InstallPage() {
         goToInstallPageButton = new Button(goToInstallPageButtonName, installButtonLocator);
         welcomeToSteam = new Banner(welcomeToSteamName, welcomeToSteamLocator);
-        downloadFilePath = String.format(System.getProperty("user.dir"), XMLRead.xmlReader("path"));
+        downloadFilePath = String.format(System.getProperty("user.dir"), XMLRead.xmlReader(PATH));
     }
 
     public void downloadClient() {
@@ -33,7 +34,7 @@ public class InstallPage {
         return welcomeToSteam.isDisplayed();
     }
 
-    public boolean isDownloaded(){
+    public boolean isDownloaded() {
         return FileManager.isFileDownloaded(downloadFilePath, downloadFileName);
     }
 }

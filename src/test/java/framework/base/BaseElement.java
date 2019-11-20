@@ -1,6 +1,6 @@
 package framework.base;
 
-import browser.Browser;
+import framework.browser.Browser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -9,12 +9,12 @@ public abstract class BaseElement {
     private By buttonLocator;
     private String elementName;
 
-    public BaseElement(String name, By locator){
+    public BaseElement(String name, By locator) {
         this.buttonLocator = locator;
         this.elementName = name;
     }
 
-    public void click(){
+    public void click() {
         Browser.getDriver().findElement(buttonLocator).click();
     }
 
@@ -22,7 +22,7 @@ public abstract class BaseElement {
         return Browser.getDriver().findElement(by);
     }
 
-    public boolean isDisplayed(){
+    public boolean isDisplayed() {
         return Browser.getDriver().findElement(buttonLocator).isDisplayed();
     }
 
