@@ -22,15 +22,26 @@ public class PropertiesRead {
      * @param key передаваемое название параметра
      * @return prop.getProperty(key)
      */
-    public static String readFromPropertiesFile(String key) {
-        String language = Browser.getLanguage();
+    public static String readFromDictionary(String key) {
+        String language = XMLRead.xmlReader("language");
         log.info("Data of " + key + " is read from property");
         if (language.equals("en")) {
-            path = XMLRead.xmlReader("enfile");
+            path = "src/test/java/resources/enConfig.properties";
         }
         if (language.equals("ru")) {
-            path = XMLRead.xmlReader("rufile");
+            path = "src/test/java/resources/ruConfig.properties";
         }
+        try {
+            InputStream input = new FileInputStream(path);
+            prop.load(new InputStreamReader(input, StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+        return prop.getProperty(key);
+    }
+
+    public static String readFromFrameworkConfig(String key) {
+        path = "src/test/java/resources/config.properties";
         try {
             InputStream input = new FileInputStream(path);
             prop.load(new InputStreamReader(input, StandardCharsets.UTF_8));

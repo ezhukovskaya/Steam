@@ -1,6 +1,6 @@
 package framework.browser;
 
-import framework.utils.propertiesManager.XMLRead;
+import framework.utils.propertiesManager.PropertiesRead;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
@@ -8,33 +8,12 @@ import java.util.concurrent.TimeUnit;
 
 public class Browser {
     private static WebDriver driver;
-//    private static volatile Browser instanceOfSingletonBrowserClass;
-    private static final String LANGUAGE_IN_PROPERTY = "language";
-    private static final String BROWSER = "browser";
-    private static final String TIMEOUT = "timeout";
-    private static final String PAGE = "page";
-    private static String language;
-    private static String browserName;
+    private static final String PAGE = PropertiesRead.readFromFrameworkConfig("page");
+    private static final int TIMEOUT = Integer.parseInt(PropertiesRead.readFromFrameworkConfig("timeout"));
+
     static final Logger log = Logger.getLogger(Browser.class);
 
-    /**
-     * Конструктор
-     */
-    private Browser() {
-        browserName = XMLRead.xmlReader(BROWSER);
-        language = XMLRead.xmlReader(LANGUAGE_IN_PROPERTY);
-        driver = BrowserFactory.getBrowser(browserName, language);
-    }
 
-    public static String getLanguage() {
-        return language;
-    }
-
-    /**
-     * инициализация Singleton
-     *
-     * @return
-     */
     public static WebDriver getBrowser() {
         if (driver == null) {
             driver = BrowserFactory.getBrowser();
@@ -47,7 +26,7 @@ public class Browser {
      */
     public static void goToUrl() {
         log.info("Go to " + PAGE);
-        getBrowser().get(XMLRead.xmlReader(PAGE));
+        getBrowser().get(PAGE);
     }
 
     /**
@@ -62,15 +41,15 @@ public class Browser {
      * закрытие браузера
      */
     public static void close() {
-        Browser.getDriver().close();
+        getBrowser().close();
     }
 
     /**
      * ожидание
      */
     public static void setImplicitlyWait() {
-        log.info("Timeout is " + XMLRead.xmlReader(TIMEOUT));
-        Browser.getDriver().manage().timeouts().implicitlyWait(Integer.parseInt(XMLRead.xmlReader(TIMEOUT)), TimeUnit.SECONDS);
+        log.info("Timeout is " + TIMEOUT);
+        getBrowser().manage().timeouts().implicitlyWait(TIMEOUT, TimeUnit.SECONDS);
     }
 
 }

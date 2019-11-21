@@ -3,6 +3,7 @@ package pageObjects.pages;
 import framework.base.elements.Banner;
 import framework.browser.Browser;
 import framework.utils.propertiesManager.PropertiesRead;
+import pageObjects.forms.TabBar;
 import regex.RegEx;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -25,9 +26,13 @@ public class AnyCategoryGamesPage {
     private TheGameWithDiscountPage theGameWithDiscountPage;
     private String theChosenGame;
     private String genreBannerClassname = "pageheader";
-    private Banner genreBanner;
+    private Banner genreBanner = new Banner("pageheader", genreBannerLocator);
     ArrayList<WebElement> topSellingGames;
     static final Logger log = Logger.getLogger(AnyCategoryGamesPage.class);
+
+    public TabBar getTabBar() {
+        return new TabBar();
+    }
 
     public AnyCategoryGamesPage() {
         genreBanner = new Banner(genreBannerClassname, genreBannerLocator);
@@ -38,19 +43,12 @@ public class AnyCategoryGamesPage {
     }
 
     public boolean genrePageIsDisplayed(String genre) {
-        String gameGenre = PropertiesRead.readFromPropertiesFile(genre);
-        boolean display = false;
-        if (genreBanner.getText().equals(gameGenre))
-            display = true;
-        return display;
+        String gameGenre = PropertiesRead.readFromDictionary(genre);
+        return genreBanner.getText().equals(gameGenre);
     }
 
     public boolean isTopSellingActive() {
-        boolean active = false;
-        if (topSellingActive.isDisplayed()) {
-            active = true;
-        }
-        return active;
+        return topSellingActive.isDisplayed();
     }
 
     public void topSellingClick() {
@@ -59,7 +57,7 @@ public class AnyCategoryGamesPage {
     }
 
     public ArrayList<String> getTopSellingGames() {
-        topSellingGames = (ArrayList<WebElement>) Browser.getDriver().findElements(gamesLocator);
+        topSellingGames = (ArrayList<WebElement>) Browser.getBrowser().findElements(gamesLocator);
         ArrayList<String> listOfGames = new ArrayList<String>();
         for (WebElement topSellingGame : topSellingGames) {
             listOfGames.add(topSellingGame.getText());
@@ -68,24 +66,24 @@ public class AnyCategoryGamesPage {
         return listOfGames;
     }
 
-    private String getDiscountValue(ArrayList<String> listOfGames, int DISCOUNT_VALUE) {
+    private String getDiscountValue(ArrayList<String> listOfGames, int discountValue) {
         String discountOfTheGame = null;
         ArrayList<String> discounts = new ArrayList<String>();
         for (String listOfGame : listOfGames) {
             discounts.add(listOfGame.substring(0, listOfGame.indexOf("\n")));
         }
         Collections.sort(discounts);
-        if (DISCOUNT_VALUE == 0) {
+        if (discountValue == 0) {
             discountOfTheGame = discounts.get(0);
         }
-        if (DISCOUNT_VALUE == 1) {
+        if (discountValue == 1) {
             discountOfTheGame = discounts.get(discounts.size() - 1);
         }
         return discountOfTheGame;
     }
 
-    public void theGameClick(ArrayList<String> listOfGames, int DISCOUNT_VALUE) {
-        String sale = getDiscountValue(listOfGames, DISCOUNT_VALUE);
+    public void theGameClick(ArrayList<String> listOfGames, int discountValue) {
+        String sale = getDiscountValue(listOfGames, discountValue);
         for (WebElement topSellingGame : topSellingGames) {
             if (topSellingGame.getText().contains(sale)) {
                 theChosenGame = RegEx.getOnlyValuesOfPrices(topSellingGame.getText());
@@ -94,10 +92,8 @@ public class AnyCategoryGamesPage {
                 break;
             }
         }
-        boolean check = ageValidatePage.isPageExists();
-        if (check == true) {
+        if (ageValidatePage.isPageExists()) {
             ageValidatePage.ageValidate();
-        } else {
         }
     }
 

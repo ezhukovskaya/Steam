@@ -1,9 +1,7 @@
 package pageObjects.pages;
 
 import framework.base.elements.Button;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
-import pageObjects.forms.Indie;
 
 public class AgeValidatePage {
     private By ageValideLocator = By.xpath("//*[@id='ageYear']");

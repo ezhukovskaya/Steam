@@ -14,26 +14,22 @@ import java.util.HashMap;
 public class BrowserFactory {
     private static final String PATH = "path";
     static final Logger log = Logger.getLogger(BrowserFactory.class);
-    /**
-     * выбор драйвера для браузера, указанного в config
-     *
-     * @param browserName имя браузера
-     * @return driver
-     */
-    public static WebDriver getBrowser(String browserName, String language) {
+
+    public static WebDriver getBrowser() {
+        String language = XMLRead.xmlReader("language");
+        String browserName = XMLRead.xmlReader("browser");
         browserName = browserName.toLowerCase();
         log.info("Language of web-site is " + language);
         WebDriver driver = null;
-        if (browserName.equals("chrome")) {
-            log.info("Chosen browser is chrome");
-            driver = getChromeInstance(language);
-        } else if (browserName.equals("firefox")) {
-            log.info("Chosen browser is firefox");
-            driver = getFirefoxInstance(language);
-        } else {
-            System.out.println("Браузер указан неверно");
+        switch (browserName) {
+            case "chrome":
+                log.info("Chosen browser is chrome");
+                driver = getChromeInstance(language);
+                break;
+            case "firefox":
+                log.info("Chosen browser is firefox");
+                driver = getFirefoxInstance(language);
         }
-
         return driver;
     }
 

@@ -15,7 +15,7 @@ public abstract class BaseTest {
     @BeforeTest
     public void init() {
         PropertyConfigurator.configure(XMLRead.xmlReader("file"));
-        Browser.getInstance();
+        Browser.getBrowser();
         mainPage = new MainPage();
         Browser.setImplicitlyWait();
         Browser.goToUrl();

@@ -8,16 +8,17 @@ public class FileManager {
     static final Logger log = Logger.getLogger(FileManager.class);
 
     public static boolean isFileDownloaded(String downloadPath, String fileName) {
-        boolean downloadedStatus = false;
+        File downloadedFile = null;
         File file = new File(downloadPath);
         File[] dirContents = file.listFiles();
         assert dirContents != null;
         log.info("Checked if file is in the folder");
         for (File dirContent : dirContents) {
             if (dirContent.getName().equals(fileName)) {
-                downloadedStatus = true;
+                downloadedFile = dirContent;
             }
         }
-        return downloadedStatus;
+        assert downloadedFile != null;
+        return (downloadedFile.getName().equals(fileName));
     }
 }

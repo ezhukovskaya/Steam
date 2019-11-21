@@ -24,7 +24,7 @@ public class MainPage {
         return homePageBanner.isDisplayed();
     }
 
-    public MainMenu goToMainMenu() {
+    public MainMenu getMainMenu() {
         return new MainMenu();
     }
 }
