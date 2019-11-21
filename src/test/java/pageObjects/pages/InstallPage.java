@@ -1,39 +1,40 @@
 package pageObjects.pages;
 
+import framework.utils.fileManager.FileManager;
+import framework.utils.propertiesManager.XMLRead;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
-import pageObjects.elements.Banner;
-import pageObjects.elements.Button;
-import framework.utils.fileManager.FileManager;
-import utils.propertiesManager.XMLRead;
+import framework.base.elements.Banner;
+import framework.base.elements.Button;
 
 public class InstallPage {
-    private By installButtonLocator = By.xpath("//*[@id=\"about_greeting\"]/div[4]/div[1]");
-    private By welcomeToSteamLocator = By.xpath("//*[@id=\"about_greeting\"]/div[1]/img");
+    private By installButtonLocator = By.xpath("//*[@class='about_install_steam_link']");
+    private By welcomeToSteamLocator = By.xpath("//*[@class='steam_logo']");
     private Button goToInstallPageButton;
     private Banner welcomeToSteam;
     private String goToInstallPageButtonName = "goToInstallPageButton";
     private String welcomeToSteamName = "welcomeBanner";
     private String downloadFilePath;
     private String downloadFileName = "steam_latest.deb";
+    private final String PATH = "path";
     static final Logger log = Logger.getLogger(InstallPage.class);
 
     public InstallPage() {
         goToInstallPageButton = new Button(goToInstallPageButtonName, installButtonLocator);
         welcomeToSteam = new Banner(welcomeToSteamName, welcomeToSteamLocator);
-        downloadFilePath = String.format(System.getProperty("user.dir"), XMLRead.xmlReader("path"));
+        downloadFilePath = String.format(System.getProperty("user.dir"), XMLRead.xmlReader(PATH));
     }
 
     public void downloadClient() {
-        goToInstallPageButton.click();
         log.info(goToInstallPageButtonName + " clicked");
+        goToInstallPageButton.click();
     }
 
     public boolean isWelcomeToSteamDisplayed() {
         return welcomeToSteam.isDisplayed();
     }
 
-    public boolean isDownloaded(){
+    public boolean isDownloaded() {
         return FileManager.isFileDownloaded(downloadFilePath, downloadFileName);
     }
 }
