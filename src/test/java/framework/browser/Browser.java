@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Browser {
     private static WebDriver driver;
-    private static volatile Browser instanceOfSingletonBrowserClass;
+//    private static volatile Browser instanceOfSingletonBrowserClass;
     private static final String LANGUAGE_IN_PROPERTY = "language";
     private static final String BROWSER = "browser";
     private static final String TIMEOUT = "timeout";
@@ -31,30 +31,15 @@ public class Browser {
     }
 
     /**
-     * возвращает значение драйвера
-     *
-     * @return
-     */
-    public static WebDriver getDriver() {
-        return driver;
-    }
-
-    /**
      * инициализация Singleton
      *
      * @return
      */
-    public static Browser getInstance() {
-        Browser localInstance = instanceOfSingletonBrowserClass;
-        if (localInstance == null) {
-            synchronized (Browser.class) {
-                localInstance = instanceOfSingletonBrowserClass;
-                if (localInstance == null) {
-                    instanceOfSingletonBrowserClass = localInstance = new Browser();
-                }
-            }
+    public static WebDriver getBrowser() {
+        if (driver == null) {
+            driver = BrowserFactory.getBrowser();
         }
-        return localInstance;
+        return driver;
     }
 
     /**
@@ -62,7 +47,7 @@ public class Browser {
      */
     public static void goToUrl() {
         log.info("Go to " + PAGE);
-        Browser.getDriver().get(XMLRead.xmlReader(PAGE));
+        getBrowser().get(XMLRead.xmlReader(PAGE));
     }
 
     /**
@@ -70,7 +55,7 @@ public class Browser {
      */
     public static void maximize() {
         log.info("Full screen mode is on");
-        Browser.getDriver().manage().window().maximize();
+        getBrowser().manage().window().maximize();
     }
 
     /**
