@@ -8,18 +8,19 @@ import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.FluentWait;
 
+import java.io.File;
 import java.time.Duration;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.awaitility.Awaitility.await;
 
 public class ExceptionTreat {
     private static final String TIMEOUT = "timeout";
     static final Logger log = Logger.getLogger(ExceptionTreat.class);
 
-    public static FluentWait<WebDriver> getFluentWait() {
-        log.info(TIMEOUT + XMLRead.xmlReader(TIMEOUT) + "seconds");
-        return new FluentWait<>(Browser.getDriver())
-                .withTimeout(Duration.ofSeconds(Integer.parseInt(XMLRead.xmlReader(TIMEOUT))))
-                .pollingEvery(Duration.ofSeconds(Integer.parseInt(XMLRead.xmlReader(TIMEOUT))))
-                .ignoring(ElementNotVisibleException.class, ElementNotInteractableException.class);
+    public static void waitUntilDownloaded(){
+        File f = new File("steam_latest.deb");
+        await().atMost(10, SECONDS).until(() -> f.exists() && !f.isDirectory());
     }
 
 }

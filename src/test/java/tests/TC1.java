@@ -16,7 +16,7 @@ public class TC1 extends BaseTest {
         Assert.assertTrue(installPage.isWelcomeToSteamDisplayed(), "Welcome to Steam page is not opened");
         log.info("Downloading the app");
         installPage.downloadClient();
-        ExceptionTreat.getFluentWait();
+        ExceptionTreat.waitUntilDownloaded();
         Assert.assertTrue(installPage.isDownloaded(), "File hasn't been downloaded");
     }
 }
