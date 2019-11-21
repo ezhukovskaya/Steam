@@ -68,23 +68,23 @@ public class AnyCategoryGamesPage {
         return listOfGames;
     }
 
-    private String getDiscountValue(ArrayList<String> listOfGames, int DISCOUNT_VALUE) {
+    private String getDiscountValue(ArrayList<String> listOfGames, String DISCOUNT_VALUE) {
         String discountOfTheGame = null;
         ArrayList<String> discounts = new ArrayList<String>();
         for (String listOfGame : listOfGames) {
             discounts.add(listOfGame.substring(0, listOfGame.indexOf("\n")));
         }
         Collections.sort(discounts);
-        if (DISCOUNT_VALUE == 0) {
+        if (DISCOUNT_VALUE == "BROWSING_INDIE") {
             discountOfTheGame = discounts.get(0);
         }
-        if (DISCOUNT_VALUE == 1) {
+        if (DISCOUNT_VALUE == "BROWSING_ACTION") {
             discountOfTheGame = discounts.get(discounts.size() - 1);
         }
         return discountOfTheGame;
     }
 
-    public void theGameClick(ArrayList<String> listOfGames, int DISCOUNT_VALUE) {
+    public void theGameClick(ArrayList<String> listOfGames, String DISCOUNT_VALUE) {
         String sale = getDiscountValue(listOfGames, DISCOUNT_VALUE);
         for (WebElement topSellingGame : topSellingGames) {
             if (topSellingGame.getText().contains(sale)) {
