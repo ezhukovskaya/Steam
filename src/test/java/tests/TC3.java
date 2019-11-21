@@ -11,9 +11,10 @@ public class TC3 extends BaseTest {
     private AnyCategoryGamesPage anyCategoryGamesPage = new AnyCategoryGamesPage();
 
     @Test
-    public void lowestDiscountCalculationCheck() {
+    public void lowestDiscountCalculationCheck() throws InterruptedException {
         Assert.assertTrue(mainPage.isHomePageDisplayed(), "The page is not opened");
         log.info("Go to Action page");
+        Thread.sleep(5000);
         mainPage.goToMainMenu().goToGamesCategory().goToGenre(new Indie());
         Assert.assertTrue(anyCategoryGamesPage.genrePageIsDisplayed(BROWSING_INDIE), "Indie page is not opened");
         log.info("Find the game with the lowest discount");
