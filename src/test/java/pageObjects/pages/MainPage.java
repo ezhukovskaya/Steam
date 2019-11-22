@@ -19,7 +19,6 @@ public class MainPage {
         return new InstallForm();
     }
 
-
     public boolean isHomePageDisplayed() {
         return homePageBanner.isDisplayed();
     }

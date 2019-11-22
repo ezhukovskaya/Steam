@@ -1,23 +1,22 @@
 package pageObjects.forms;
 
-import framework.base.elements.Button;
 import framework.browser.Browser;
-import framework.utils.propertiesManager.PropertiesRead;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import pageObjects.pages.AgeValidatePage;
 import regex.RegEx;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class ListOfGames {
     private By listOfGamesLocator = By.xpath("//a/div[@class='discount_block tab_item_discount']");
     static final Logger log = Logger.getLogger(MainMenu.class);
     ArrayList<WebElement> games;
+    private AgeValidatePage ageValidatePage = new AgeValidatePage();
 
-    public ArrayList<String> getGames() {
+    private ArrayList<String> getGames() {
         games = (ArrayList<WebElement>) Browser.getBrowser().findElements(listOfGamesLocator);
         ArrayList<String> listOfGames = new ArrayList<String>();
         for (WebElement game : games) {
@@ -27,42 +26,49 @@ public class ListOfGames {
         return listOfGames;
     }
 
-    public int max(ArrayList<Integer> sales) {
+    private int getMaxIndex(ArrayList<Integer> sales) {
         int max = 0;
-        for (Integer sale : sales) {
-            if (max <= sale) {
-                max = sale;
+        int maxIndex = 0;
+        for (int i=0;i<sales.size();i++) {
+            if (max <= sales.get(i)) {
+                max = sales.get(i);
+                maxIndex = i;
             }
         }
-        return max;
+        return maxIndex;
     }
 
-    private int getDiscountValue(ArrayList<String> listOfGames, int discountValue) {
-        String discountOfTheGame = null;
+    private int getMinIndex(ArrayList<Integer> sales){
+        int min = 100;
+        int minIndex = 0;
+        for (int i=0;i<sales.size();i++) {
+            if (min >= sales.get(i)) {
+                min = sales.get(i);
+                minIndex = i;
+            }
+        }
+        return minIndex;
+    }
+
+    private int getIndexOfTheGame(ArrayList<String> listOfGames, int discountRange) {
+        int discountOfTheGame = 0;
         ArrayList<Integer> discounts = new ArrayList<Integer>();
         for (String listOfGame : listOfGames) {
             discounts.add(Integer.parseInt(listOfGame.substring(0, listOfGame.indexOf("\n"))));
         }
-        Collections.sort(discounts);
-        if (discountValue == 0) {
-            discountOfTheGame = discounts.get(0);
+        if (discountRange == 0) {
+            discountOfTheGame = getMaxIndex(discounts);
         }
-        if (discountValue == 1) {
-            discountOfTheGame = discounts.get(discounts.size() - 1);
+        if (discountRange == 1) {
+            discountOfTheGame = getMinIndex(discounts);
         }
         return discountOfTheGame;
     }
 
-    public void theGameClick(ArrayList<String> listOfGames, int discountValue) {
-        String sale = getDiscountValue(listOfGames, discountValue);
-        for (WebElement topSellingGame : topSellingGames) {
-            if (topSellingGame.getText().contains(sale)) {
-                theChosenGame = RegEx.getOnlyValuesOfPrices(topSellingGame.getText());
-                log.info("Game is clicked");
-                topSellingGame.click();
-                break;
-            }
-        }
+    public void theGameClick(int discountRange) {
+        ArrayList<String> listOfGames = getGames();
+        int discountValue = getIndexOfTheGame(listOfGames, discountRange);
+        games.get(discountValue).click();
         if (ageValidatePage.isPageExists()) {
             ageValidatePage.ageValidate();
         }

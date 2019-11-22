@@ -19,27 +19,18 @@ public class AnyCategoryGamesPage {
     private By gamesLocator = By.xpath("//a/div[@class='discount_block tab_item_discount']");
     private By topSellingActiveLocator = By.xpath("//*[contains(@class,'active')]");
     private By genreBannerLocator = By.className("pageheader");
-    private Button topSellingActive;
-    private Button topSelling;
     private String topSellingName = "topSellingButton";
-    private AgeValidatePage ageValidatePage;
-    private TheGameWithDiscountPage theGameWithDiscountPage;
+    private AgeValidatePage ageValidatePage = new AgeValidatePage();
+    private TheGameWithDiscountPage theGameWithDiscountPage = new TheGameWithDiscountPage();
     private String theChosenGame;
-    private String genreBannerClassname = "pageheader";
     private Banner genreBanner = new Banner("pageheader", genreBannerLocator);
-    ArrayList<WebElement> topSellingGames;
-    static final Logger log = Logger.getLogger(AnyCategoryGamesPage.class);
+    private Button topSellingActive = new Button(topSellingName, topSellingActiveLocator);
+    private Button topSelling = new Button(topSellingName, topSellingLocator);
+    private ArrayList<WebElement> topSellingGames;
+    private static final Logger log = Logger.getLogger(AnyCategoryGamesPage.class);
 
     public TabBar getTabBar() {
         return new TabBar();
-    }
-
-    public AnyCategoryGamesPage() {
-        genreBanner = new Banner(genreBannerClassname, genreBannerLocator);
-        ageValidatePage = new AgeValidatePage();
-        topSelling = new Button(topSellingName, topSellingLocator);
-        topSellingActive = new Button(topSellingName, topSellingActiveLocator);
-        theGameWithDiscountPage = new TheGameWithDiscountPage();
     }
 
     public boolean genrePageIsDisplayed(String genre) {
@@ -98,15 +89,11 @@ public class AnyCategoryGamesPage {
     }
 
     public boolean isPricesTheSame() {
-        boolean compare = false;
         String fromTheGamePagePrices = theGameWithDiscountPage.getPricesFromPage();
         fromTheGamePagePrices = RegEx.getOnlyValuesOfPrices(fromTheGamePagePrices);
         if (fromTheGamePagePrices.length() > theChosenGame.length()) {
             fromTheGamePagePrices = fromTheGamePagePrices.substring(4);
         }
-        if (theChosenGame.equals(fromTheGamePagePrices)) {
-            compare = true;
-        }
-        return compare;
+        return theChosenGame.equals(fromTheGamePagePrices);
     }
 }

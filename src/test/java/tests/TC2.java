@@ -33,7 +33,7 @@ public class TC2 extends BaseTest {
     @Test(dataProvider = "getData")
     public void newHighestDiscountCalculationCheck(String genre, int discount) {
         mainPage.getMainMenu().gameGenreClick(genre);
-        anyCategoryGamesPage.getTabBar().getTabBarCategory().getGames();
+        anyCategoryGamesPage.getTabBar().getTabBarCategory().theGameClick(discount);
     }
 
     @DataProvider(name = "getData")
