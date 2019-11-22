@@ -25,11 +25,11 @@ public class AnyCategoryGamesPage {
         return genreBanner.getText().contains(gameGenre);
     }
 
-    public void gameClick(int discount){
+    public void gameClick(int discount) {
         new ListOfGames().theGameClick(discount);
     }
 
-    public String getGamePricesFromTheList(int discount){
+    public String getGamePricesFromTheList(int discount) {
         return new ListOfGames().getGameText(discount);
     }
 

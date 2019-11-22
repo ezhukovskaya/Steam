@@ -13,14 +13,14 @@ public class AgeValidatePage {
     private String ageName = "ageButton";
     private String viewPageName = "viewPage";
     private String bornYear = "2000";
-    private DropDown ageList = new DropDown(ageName,ageValideLocator);
+    private DropDown ageList = new DropDown(ageName, ageValideLocator);
 
     public AgeValidatePage() {
         age = new Button(ageName, ageValideLocator);
         viewPage = new Button(viewPageName, viewPageLocator);
     }
 
-    public boolean isPageExists () {
+    public boolean isPageExists() {
         return viewPage.isDisplayed();
     }
 

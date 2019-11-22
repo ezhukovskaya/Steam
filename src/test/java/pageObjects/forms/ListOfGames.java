@@ -68,7 +68,7 @@ public class ListOfGames {
         return discountOfTheGame;
     }
 
-    public String getGameText(int discountRange){
+    public String getGameText(int discountRange) {
         ArrayList<String> listOfGames = getGames();
         int discountValue = getIndexOfTheGame(listOfGames, discountRange);
         return RegEx.getOnlyValuesOfPrices(games.get(discountValue).getText());
