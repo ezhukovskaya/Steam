@@ -1,6 +1,6 @@
 package pageObjects.pages;
 
-import framework.base.elements.Banner;
+import framework.elements.Banner;
 import org.openqa.selenium.By;
 import pageObjects.forms.InstallForm;
 import pageObjects.forms.MainMenu;

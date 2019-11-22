@@ -4,8 +4,8 @@ import framework.utils.fileManager.FileManager;
 import framework.utils.propertiesManager.XMLRead;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
-import framework.base.elements.Banner;
-import framework.base.elements.Button;
+import framework.elements.Banner;
+import framework.elements.Button;
 
 public class InstallPage {
     private By installButtonLocator = By.xpath("//*[@class='about_install_steam_link']");

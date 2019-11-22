@@ -1,4 +1,4 @@
-package framework.base.elements;
+package framework.elements;
 
 import framework.base.BaseElement;
 import org.openqa.selenium.By;

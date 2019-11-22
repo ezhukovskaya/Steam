@@ -1,6 +1,6 @@
 package pageObjects.forms;
 
-import framework.base.elements.Button;
+import framework.elements.Button;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 

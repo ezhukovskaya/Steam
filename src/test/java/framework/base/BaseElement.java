@@ -1,6 +1,5 @@
 package framework.base;
 
-import framework.base.elements.Button;
 import framework.browser.Browser;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -29,8 +28,8 @@ public abstract class BaseElement {
         actions.moveToElement(Browser.getBrowser().findElement(this.buttonLocator)).perform();
     }
 
-    public void select(By by, String key) {
-        new Select(Browser.getBrowser().findElement(by)).selectByVisibleText(key);
+    public void select() {
+        new Select(Browser.getBrowser().findElement(this.buttonLocator)).selectByVisibleText(key);
     }
 
     public String getText() {

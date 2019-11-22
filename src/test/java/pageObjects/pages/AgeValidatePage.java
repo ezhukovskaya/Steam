@@ -1,6 +1,7 @@
 package pageObjects.pages;
 
-import framework.base.elements.Button;
+import framework.elements.Button;
+import framework.elements.DropDown;
 import org.openqa.selenium.By;
 
 public class AgeValidatePage {
@@ -13,6 +14,7 @@ public class AgeValidatePage {
     private String bornYear = "2000";
     private String ageListId = "ageYear";
     private By ageLocator = By.id(ageListId);
+    private DropDown ageList = new DropDown(ageName,ageValideLocator);
 
     public AgeValidatePage() {
         age = new Button(ageName, ageValideLocator);
@@ -24,8 +26,8 @@ public class AgeValidatePage {
     }
 
     public void ageValidate() {
-        age.click();
-        age.select(ageLocator,bornYear);
+        ageList.click();
+        ageList.select();
         viewPage.click();
     }
 }
