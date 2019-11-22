@@ -1,6 +1,6 @@
 package framework.browser;
 
-import framework.utils.propertiesManager.PropertiesRead;
+import framework.utils.PropertiesRead;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 

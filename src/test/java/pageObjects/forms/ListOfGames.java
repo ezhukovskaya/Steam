@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pageObjects.pages.AgeValidatePage;
+import regex.RegEx;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class ListOfGames {
             if (games.get(i).getText().isEmpty()) {
                 games.remove(i);
             } else {
-                listOfGames.add(games.get(i).getText());
+                listOfGames.add(RegEx.getOnlyValuesOfPrices(games.get(i).getText()));
                 i++;
             }
         }
@@ -67,11 +68,19 @@ public class ListOfGames {
         return discountOfTheGame;
     }
 
+    public String getGameText(int discountRange){
+        ArrayList<String> listOfGames = getGames();
+        int discountValue = getIndexOfTheGame(listOfGames, discountRange);
+        return RegEx.getOnlyValuesOfPrices(games.get(discountValue).getText());
+    }
+
     public void theGameClick(int discountRange) {
+        log.info("Get list of games");
         ArrayList<String> listOfGames = getGames();
         int discountValue = getIndexOfTheGame(listOfGames, discountRange);
         games.get(discountValue).click();
         if (ageValidatePage.isPageExists()) {
+            log.info("Go to validation form");
             ageValidatePage.ageValidate();
         }
     }

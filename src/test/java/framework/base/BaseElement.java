@@ -8,10 +8,10 @@ import org.openqa.selenium.support.ui.Select;
 
 public abstract class BaseElement {
 
-    private By buttonLocator;
-    private String elementName;
+    protected By buttonLocator;
+    protected String elementName;
     static final Logger log = Logger.getLogger(BaseElement.class);
-    private Actions actions;
+    private Actions actions = new Actions(Browser.getBrowser());
 
     public BaseElement(String name, By locator) {
         this.buttonLocator = locator;
@@ -24,12 +24,8 @@ public abstract class BaseElement {
     }
 
     public void hover() {
-        actions = new Actions(Browser.getBrowser());
+        log.info(this.elementName + "hovered");
         actions.moveToElement(Browser.getBrowser().findElement(this.buttonLocator)).perform();
-    }
-
-    public void select() {
-        new Select(Browser.getBrowser().findElement(this.buttonLocator)).selectByVisibleText(key);
     }
 
     public String getText() {

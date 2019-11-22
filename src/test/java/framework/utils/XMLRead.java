@@ -1,4 +1,4 @@
-package framework.utils.propertiesManager;
+package framework.utils;
 
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;

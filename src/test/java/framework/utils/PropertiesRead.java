@@ -1,6 +1,5 @@
-package framework.utils.propertiesManager;
+package framework.utils;
 
-import framework.browser.Browser;
 import org.apache.log4j.Logger;
 
 import java.io.FileInputStream;

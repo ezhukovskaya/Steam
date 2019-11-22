@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-
-<suite name="tests">
-    <test preserve-order="true" name="/home/ITRANSITION.CORP/e.zhukovskaya/selenium" verbose="2" >
-        <classes>
-            <class name="tests.SteamAppDownload"/>
-        </classes>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="src/test/java/tests">
+        <classes/>
     </test>
 </suite>

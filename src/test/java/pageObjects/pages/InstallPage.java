@@ -1,7 +1,8 @@
 package pageObjects.pages;
 
-import framework.utils.fileManager.FileManager;
-import framework.utils.propertiesManager.XMLRead;
+import framework.utils.FileManager;
+import framework.utils.PropertiesRead;
+import framework.utils.XMLRead;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import framework.elements.Banner;
@@ -22,7 +23,7 @@ public class InstallPage {
     public InstallPage() {
         goToInstallPageButton = new Button(goToInstallPageButtonName, installButtonLocator);
         welcomeToSteam = new Banner(welcomeToSteamName, welcomeToSteamLocator);
-        downloadFilePath = String.format(System.getProperty("user.dir"), XMLRead.xmlReader(PATH));
+        downloadFilePath = String.format(System.getProperty("user.dir"), PropertiesRead.readFromFrameworkConfig(PATH));
     }
 
     public void downloadClient() {

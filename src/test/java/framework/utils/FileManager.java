@@ -1,4 +1,4 @@
-package framework.utils.fileManager;
+package framework.utils;
 
 import org.apache.log4j.Logger;
 

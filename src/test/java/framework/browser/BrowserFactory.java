@@ -1,6 +1,7 @@
 package framework.browser;
 
-import framework.utils.propertiesManager.XMLRead;
+import framework.utils.PropertiesRead;
+import framework.utils.XMLRead;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -16,8 +17,8 @@ public class BrowserFactory {
     static final Logger log = Logger.getLogger(BrowserFactory.class);
 
     public static WebDriver getBrowser() {
-        String language = XMLRead.xmlReader("language");
-        String browserName = XMLRead.xmlReader("browser");
+        String language = PropertiesRead.readFromFrameworkConfig("language");
+        String browserName = PropertiesRead.readFromFrameworkConfig("browser");
         browserName = browserName.toLowerCase();
         log.info("Language of web-site is " + language);
         WebDriver driver = null;
@@ -43,7 +44,7 @@ public class BrowserFactory {
         HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
         ChromeOptions chromeOptions = new ChromeOptions();
         chromePrefs.put("profile.default_content_settings.popups", 0);
-        chromePrefs.put("download.default_directory", String.format(System.getProperty("user.dir"), XMLRead.xmlReader(PATH)));
+        chromePrefs.put("download.default_directory", String.format(System.getProperty("user.dir"), PropertiesRead.readFromFrameworkConfig(PATH)));
         chromePrefs.put("safebrowsing.enabled", true);
         chromePrefs.put("intl.accept_languages", language);
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
@@ -59,7 +60,7 @@ public class BrowserFactory {
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         firefoxOptions.addPreference("browser.download.folderList", 2);
-        firefoxOptions.addPreference("browser.download.dir", String.format(System.getProperty("user.dir"), XMLRead.xmlReader(PATH)));
+        firefoxOptions.addPreference("browser.download.dir", String.format(System.getProperty("user.dir"), PropertiesRead.readFromFrameworkConfig(PATH)));
         firefoxOptions.addPreference("browser.download.useDownloadDir", true);
         firefoxOptions.addPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-debian-package");
         firefoxOptions.addPreference("pdfjs.disabled", true);
