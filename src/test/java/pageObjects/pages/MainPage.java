@@ -7,13 +7,7 @@ import pageObjects.forms.MainMenu;
 
 public class MainPage {
     private By homePageBannerLocator = By.xpath("//*[@class='home_page_content']");
-    private Banner homePageBanner;
-    private String homePageBannerName = "homePageBanner";
-
-
-    public MainPage() {
-        homePageBanner = new Banner(homePageBannerName, homePageBannerLocator);
-    }
+    private Banner homePageBanner = new Banner("homePageBanner", homePageBannerLocator);
 
     public InstallForm goToDownloadApp() {
         return new InstallForm();
