@@ -32,6 +32,7 @@ public abstract class BaseElement {
     }
 
     public boolean isDisplayed() {
+        log.info(this.elementName + " is checking if displayed");
         return Browser.getBrowser().findElements(this.buttonLocator).size() > 0;
     }
 

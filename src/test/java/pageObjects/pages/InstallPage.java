@@ -10,7 +10,7 @@ import org.openqa.selenium.By;
 public class InstallPage {
     private By installButtonLocator = By.xpath("//*[@class='about_install_steam_link']");
     private By welcomeToSteamLocator = By.xpath("//*[@class='steam_logo']");
-    private Button goToInstallPageButton = new Button("goToInstallPageButton", installButtonLocator);;
+    private Button goToInstallPageButton = new Button("goToInstallPageButton", installButtonLocator);
     private Banner welcomeToSteam = new Banner("welcomeBanner", welcomeToSteamLocator);
     private String goToInstallPageButtonName = "goToInstallPageButton";
     private String downloadFilePath = String.format(System.getProperty("user.dir"), PropertiesRead.readFromFrameworkConfig("path"));

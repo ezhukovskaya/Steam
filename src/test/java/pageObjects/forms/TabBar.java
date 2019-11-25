@@ -2,7 +2,6 @@ package pageObjects.forms;
 
 import framework.elements.Button;
 import framework.utils.PropertiesRead;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 
 public class TabBar {

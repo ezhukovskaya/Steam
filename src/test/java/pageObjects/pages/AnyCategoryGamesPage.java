@@ -3,7 +3,6 @@ package pageObjects.pages;
 import framework.elements.Banner;
 import framework.elements.Button;
 import framework.utils.PropertiesRead;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import pageObjects.forms.ListOfGames;
 import pageObjects.forms.TabBar;
@@ -14,7 +13,6 @@ public class AnyCategoryGamesPage {
     private String topSellingName = "topSellingButton";
     private Banner genreBanner = new Banner("pageheader", genreBannerLocator);
     private Button topSellingActive = new Button(topSellingName, topSellingActiveLocator);
-    private static final Logger log = Logger.getLogger(AnyCategoryGamesPage.class);
 
     public TabBar getTabBar() {
         return new TabBar();
