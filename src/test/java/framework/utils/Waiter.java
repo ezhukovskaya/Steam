@@ -18,7 +18,7 @@ public class Waiter {
     }
 
     public static void waitUntilInvisible(By by) {
-        WebDriverWait wait = new WebDriverWait(Browser.getBrowser(), Integer.parseInt(PropertiesRead.readFromFrameworkConfig("timout")));
+        WebDriverWait wait = new WebDriverWait(Browser.getBrowser(), Integer.parseInt(PropertiesRead.readFromFrameworkConfig("timeout")));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
 

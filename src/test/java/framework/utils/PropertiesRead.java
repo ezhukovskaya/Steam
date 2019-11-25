@@ -22,7 +22,7 @@ public class PropertiesRead {
      * @return prop.getProperty(key)
      */
     public static String readFromDictionary(String key) {
-        String language = XMLRead.xmlReader("language");
+        String language = readFromFrameworkConfig("language");
         log.info("Data of " + key + " is read from property");
         if (language.equals("en")) {
             path = "src/test/java/resources/enConfig.properties";

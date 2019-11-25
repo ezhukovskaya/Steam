@@ -33,6 +33,7 @@ public class TC2 extends BaseTest {
         log.info("Get Prices of the game from its page");
         String priceFromTheGamePage = theGameWithDiscountPage.getPricesFromGamePage();
         Assert.assertEquals(priceFromTheGamePage, priceFromTheList, "The prices are different");
+        theGameWithDiscountPage.goToMainMenuClick();
     }
 
     @DataProvider(name = "getData")

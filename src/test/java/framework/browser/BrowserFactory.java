@@ -1,7 +1,6 @@
 package framework.browser;
 
 import framework.utils.PropertiesRead;
-import framework.utils.XMLRead;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
