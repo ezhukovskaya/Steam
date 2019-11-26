@@ -12,7 +12,7 @@ public abstract class BaseElement {
     static final Logger log = Logger.getLogger(BaseElement.class);
     private Actions actions = new Actions(Browser.getBrowser());
 
-    public BaseElement(String name, By locator) {
+    public BaseElement(By locator, String name) {
         this.buttonLocator = locator;
         this.elementName = name;
     }

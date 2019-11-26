@@ -9,16 +9,14 @@ public class AgeValidatePage {
     private By ageValideLocator = By.xpath("//*[@id='ageYear']");
     private By viewPageLocator = By.xpath("//a[@onclick='ViewProductPage()']");
     private Button viewPage = new Button("viewPage", viewPageLocator);
-    private String ageName = "ageButton";
-    private String bornYear = "2000";
-    private DropDown ageList = new DropDown(ageName, ageValideLocator);
+    private DropDown ageList = new DropDown("ageButton", ageValideLocator);
 
 
     public boolean isPageExists() {
         return viewPage.isDisplayed();
     }
 
-    public void ageValidate() {
+    public void ageValidate(String bornYear) {
         ageList.click();
         ageList.select(bornYear);
         viewPage.click();

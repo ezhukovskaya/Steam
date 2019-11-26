@@ -10,9 +10,8 @@ import pageObjects.forms.TabBar;
 public class AnyCategoryGamesPage {
     private By topSellingActiveLocator = By.xpath("//*[contains(@class,'active')]");
     private By genreBannerLocator = By.xpath("//*[@class='contenthub_subtitle']");
-    private String topSellingName = "topSellingButton";
     private Banner genreBanner = new Banner("pageheader", genreBannerLocator);
-    private Button topSellingActive = new Button(topSellingName, topSellingActiveLocator);
+    private Button topSellingActive = new Button("topSellingButton", topSellingActiveLocator);
 
     public TabBar getTabBar() {
         return new TabBar();

@@ -18,7 +18,7 @@ public class TC2 extends BaseTest {
     private MainPage mainPage = new MainPage();
 
     @Test(dataProvider = "getData")
-    public void newHighestDiscountCalculationCheck(String genre, int discount) throws InterruptedException {
+    public void newHighestDiscountCalculationCheck(String genre, int discount) {
         Assert.assertTrue(mainPage.isHomePageDisplayed(), "The page is not opened");
         log.info("Go to Action page");
         mainPage.getMainMenu().gameGenreClick(genre);

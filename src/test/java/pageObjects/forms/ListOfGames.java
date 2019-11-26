@@ -1,6 +1,7 @@
 package pageObjects.forms;
 
 import framework.browser.Browser;
+import framework.utils.PropertiesRead;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -81,7 +82,7 @@ public class ListOfGames {
         games.get(discountValue).click();
         if (ageValidatePage.isPageExists()) {
             log.info("Go to validation form");
-            ageValidatePage.ageValidate();
+            ageValidatePage.ageValidate(PropertiesRead.readFromFrameworkConfig("age"));
         }
     }
 

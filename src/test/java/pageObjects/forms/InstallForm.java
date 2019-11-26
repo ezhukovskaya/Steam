@@ -10,7 +10,7 @@ public class InstallForm {
     private Button goToDownloadPageButton = new Button(goToDownloadPageButtonName, downloadButtonLocator);
     static final Logger log = Logger.getLogger(InstallForm.class);
 
-    public InstallForm() {
+    public void installClick() {
         log.info(goToDownloadPageButtonName + " clicked");
         goToDownloadPageButton.click();
     }
